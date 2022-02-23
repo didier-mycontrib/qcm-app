@@ -1,0 +1,12 @@
+[
+    {
+    "context" : [ "/qcm-api" ]  ,
+    "secure" : "false" ,
+    "target" : "http://localhost:8230" 
+    },
+    {
+        "context" : [ "/user-api" ]  ,
+        "secure" : "false" ,
+        "target" : "http://localhost:8232" 
+        }
+]

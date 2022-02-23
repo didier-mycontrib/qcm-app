@@ -1,0 +1,21 @@
+nbQuestions: {{qcm?.nbQuestions}}
+<input type="button" (click)="addNewQuestion()" value="add new question" />
+&nbsp;<input type="button" (click)="removeLastQuestion()" value="remove last question" />
+<hr/>
+ <div *ngFor="let q of qcm?.questions; index as i">
+        <div>
+            <div class="row form-group">
+                    <div class="col-sm-1">{{q.num}}</div> 
+                    <div class="col-sm-11"><input class="form-control" type="text" [(ngModel)]="q.question" /></div>
+            </div>
+            <div>
+                 <div *ngFor="let a of q.answers; index as j" class="row form-group">
+                    <div class="offset-sm-1 col-sm-1">{{a.txtNum}}<input type="checkbox"  [(ngModel)]="a.ok"/></div>
+                   <div class="col-sm-10">
+                      <input type="text" class="form-control" [(ngModel)]="a.text" /> 
+                    </div>
+                 </div> 
+            </div>
+            <hr/>
+        </div>
+ </div>

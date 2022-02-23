@@ -1,0 +1,81 @@
+<div class="row">
+      <div class="col-sm-8">  
+            <div class="card">
+               <h4 class="card-header my-bg-primary appuye text-white">1. mode & options</h4>
+               <div class="card-body fondParDefaut">
+                   <form role="form" #formOptions="ngForm"
+                   method="POST" encType="multipart/form-data"  id="formOptions" class="form-horizontal">
+                     
+                   <bsu-my-fg-label [label]="'mode'">
+                      <input type="radio"  value="training" name="mode" [(ngModel)]="mode" (ngModelChange)="reinit()"/> training &nbsp;&nbsp;
+                      <input type="radio"  value="eval"  name="mode" [(ngModel)]="mode" (ngModelChange)="reinit()" /> eval
+                 </bsu-my-fg-label> 
+    
+                      <bsu-my-fg-label [label]="'organisation'" *ngIf="mode=='eval'">
+                          <input type="text" class="form-control" placeholder='ecole ou centre-formation ou autre' 
+                          name="organisation" [(ngModel)]="qcmService.qcmSession.performer.org" />
+                      </bsu-my-fg-label> 
+                      <!--
+                      <bsu-my-fg-label [label]="'code session'" *ngIf="mode=='eval'">
+                            <input type="text" class="form-control" placeholder='éventuel code confidentiel'
+                            name="code" [(ngModel)]="qcmService.qcmSession.performer.code" />
+                        </bsu-my-fg-label> 
+                     -->
+                      <bsu-my-fg-label [label]="'nom/speudo'" *ngIf="mode=='eval'">
+                           <input type="text" class="form-control" placeholder='nom et prénom (enregistré environ 48h seulement)' required
+                           name="fullName" [(ngModel)]="qcmService.qcmSession.performer.fullName" />
+                      </bsu-my-fg-label> 
+    
+                      <bsu-my-fg-label [label]="'email (résultats)'" *ngIf="mode=='eval'">
+                         <input type="text" class="form-control" placeholder='(pas enregistré), juste pour obtenir résultats'
+                         name="email" [(ngModel)]="qcmService.qcmSession.performer.email" />
+                    </bsu-my-fg-label> 
+                      
+                   </form>
+               </div>
+            </div> <!-- end of card-->
+            <p></p>
+            <div class="card">
+                            <h4 class="card-header my-bg-primary appuye text-white">3. action</h4>
+                            <div class="card-body fondParDefaut">
+                                 <input  type="button" value="effectuer qcm" (click)="onEffectuerQcm()" 
+                                 [disabled]="!isReadyForPerform()" /> 
+                                 {{selectedQcm?.title}}
+                            </div>
+                         </div> <!-- end of card-->
+        </div> <!-- end of col-sm-8 -->
+    <div class="col-sm-4">  
+        <div class="card">
+           <h4 class="card-header my-bg-primary appuye text-white">2. sélection</h4>
+           <div class="card-body fondParDefaut">
+                <form role="form" #formFiltrage="ngForm"
+            method="POST" encType="multipart/form-data"  id="formFiltrage" class="form-horizontal">
+              
+               <bsu-my-fg-label [label]="'filtre'">
+                    <input type="text" class="form-control"
+                    name="filtre" [(ngModel)]="filtre" />
+               </bsu-my-fg-label>   
+
+               <div class="form-group row">
+                    <div class="offset-sm-3 col-sm-9">
+                    <input  type="submit" class="btn my-bg-primary text-white" 
+                            value="1a. actualiser la liste" 
+                            (click)="onListeQcmAvecFiltrage()" /> &nbsp;&nbsp; <span>{{msgFiltrage}}</span>
+                    </div>
+                  </div>
+            </form>
+            <hr/>
+            2b. sélectionner un qcm (click):
+            <ul>
+               <li *ngFor="let q of listeQcm">
+                  <span (click)="onSelectQcm(q)" [class.selected]="q==selectedQcm"> {{q.title}}  </span> 
+               </li>     
+            </ul>
+           </div>
+        </div> <!-- end of card-->
+    </div> <!-- end of col-sm-4 -->
+    
+</div> <!-- end of row-->
+                       
+
+
