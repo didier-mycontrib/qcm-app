@@ -20,7 +20,7 @@ export class AuthService {
   constructor(private _http : HttpClient) {
    }
   private _headers = new HttpHeaders({'Content-Type': 'application/json'});
-  private _authBaseUrl = "./user-api/public/login" ; //avec ng serve --proxy-config proxy.conf.json
+  private _authBaseUrl = "/user-api/public/login" ; //avec ng serve --proxy-config proxy.conf.json
 
   postAuth(auth : AuthRequest):Observable<AuthResponse>{
     return this._http.post<AuthResponse>(this._authBaseUrl ,auth,{headers: this._headers} )

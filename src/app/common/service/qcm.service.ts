@@ -19,8 +19,8 @@ export class QcmService extends GenericRestCrudService<Qcm> {
   }
 
   public settingPublicAndPrivateBaseUrl(): void {
-    this.publicBaseUrl = "./qcm-api/public/qcm" ; //avec ng serve --proxy-config proxy.conf.json
-    this.privateBaseUrl = "./qcm-api/private/qcm" ; //avec ng serve --proxy-config proxy.conf.json
+    this.publicBaseUrl = "/qcm-api/public/qcm" ; //avec ng serve --proxy-config proxy.conf.json
+    this.privateBaseUrl = "/qcm-api/private/qcm" ; //avec ng serve --proxy-config proxy.conf.json
   }
 
   public findQcmFromCriteria(mode:string|null=null,org:string|null=null,code:string|null=null):Observable<Qcm[]>{
@@ -33,7 +33,7 @@ export class QcmService extends GenericRestCrudService<Qcm> {
   }
 
   public postQcmChoices(qcmId:string,choices: ResponseChoices[],qcmPerformer:QcmPerformer,mode:string|null=null):Observable<PostChoicesResponse>{
-    let url : string = "./qcm-api/public/qcm_choices";
+    let url : string = "/qcm-api/public/qcm_choices";
     let postChoicesRequest = new  PostChoicesRequest();
     postChoicesRequest.qcmId=qcmId;
     postChoicesRequest.mode=mode||"training";
@@ -57,7 +57,7 @@ export class QcmResultsService extends GenericRestCrudService<QcmResults> {
   }
 
   public settingPublicAndPrivateBaseUrl(): void {
-    this.privateBaseUrl = "./qcm-api/private/qcm_results" ; //avec ng serve --proxy-config proxy.conf.json
+    this.privateBaseUrl = "/qcm-api/private/qcm_results" ; //avec ng serve --proxy-config proxy.conf.json
     this.publicBaseUrl =  this.privateBaseUrl; //all is private (confidential results)
   }
 
