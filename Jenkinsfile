@@ -17,7 +17,7 @@ pipeline {
 		stage('copy ddc-app from ./qcm-app/dist to ./frontends-content') {
 			steps {
 			    ws("/conf-docker/frontends-angular/my-frontends") {
-				     sh('rm -r ./frontends-content/qcm-app')
+				     sh('rm -rf ./frontends-content/qcm-app')
 				     sh('cp -r ./qcm-app/dist/qcm-app ./frontends-content')
 				}
 			}
