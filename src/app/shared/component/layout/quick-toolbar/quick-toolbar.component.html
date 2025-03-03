@@ -1,0 +1,15 @@
+<!-- login_logout , home_welcome , search , caddy_or_subscribe , ... -->
+<div class="quick-toolbar">
+   <mat-icon class="customIconSize" (click)="onHome()">home</mat-icon>
+   @if(searchPath() != ''){
+       <mat-icon class="customIconSize"  (click)="onSearch()">search</mat-icon>
+   }
+   <mat-icon class="customIconSize" (click)="onLoginOut()">account_box</mat-icon> <!-- or account_circle --> 
+   @if(shoppingPath() != ''){
+      <mat-icon class="customIconSize"  (click)="onShopping()">shopping_cart</mat-icon>
+   }
+   <mat-icon class="customIconSize" (click)="onStatus()">help_outline</mat-icon>
+</div>
+
+
+

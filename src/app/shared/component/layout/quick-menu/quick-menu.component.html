@@ -1,0 +1,6 @@
+<div class="quick-menu flexRowWrap">
+        @for(md of quickMenuDefs(); track md){
+          <button  mat-button class="my-button flexItem center-text-align boutonRondCarre" 
+                  (click)="onNavigate(md.path)">{{md.label}}</button>
+        }
+</div>

@@ -1,0 +1,27 @@
+<div class="mainSideNav flexRowNoWrap degradeDeGrisClair"
+     (mouseleave)="onResetMenuSelection()">
+
+  <!-- main level menu , always visible -->
+    <div class="main-level-menu flexItemNone" > 
+        @for(md of menuDefs();track md;let i =$index ){
+       <div class="my-menu-item"   
+              (click)="onNav(md)" 
+              [class.selected]="md === selectedMenuDef"
+              (mouseenter)="onSubMenu(md,i)" >{{md.label}}
+        </div> 
+        }
+    </div>
+
+     <!-- sub level menu , visible or not --> 
+    <div class="flexItemNone sub-level-menu" 
+         [style.display]="subMenuDefs?'block':'none'" >
+        <div  [style.paddingTop.em]="subMenuPaddingTop"></div>
+        @for(smd of subMenuDefs;track smd){
+            <div class="my-menu-item" 
+            (click)="onNav(smd)" 
+            [class.selected]="smd === selectedSubMenuDef"
+            (mouseenter)="selectedSubMenuDef=smd">{{smd.label}}
+            </div> 
+        }
+    </div>
+</div>

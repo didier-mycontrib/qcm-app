@@ -1,0 +1,33 @@
+
+
+.highlight {
+    font-weight: bold;
+  }
+  
+  .connected , .success{
+    color : green; font-weight : bold;
+  }
+  
+  .disconnected , .error{
+    color : red; font-weight : bold;
+  }
+  
+  label.f-align {
+      width: 10em;
+      display: inline-block;
+      margin-left: 0.3em;
+      flex: 0 0 8em;
+    }
+    
+    .f-align {
+      margin-left: 0.3em;
+      flex: 1 1 auto;
+    }
+    
+    .f-max-size {
+      width: 97%;
+    }
+  
+    /* plutot a la fin et plutot dans .css que dans .scss / mystere a elucider */
+    /*@import "/assets/css/d2f-common-layout.css";*/
+    /* plus nécessaire maintant car dans styles: [] de angular.json */

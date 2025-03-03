@@ -1,0 +1,47 @@
+<generic-crud  [genericCrudContext]="genericCrudContext"
+               [genericCrudService]="qcmResultsService"
+               [optionalSpecificSubFormTemplateRef]="qcmResultsSpecificSubform">
+</generic-crud>
+
+<!--
+NB: subFormData as interface AbstractGenSubFormData
+with .mode ("newOne" or "existingOne") and .obj = object of form
+-->
+<ng-template #qcmResultsSpecificSubform let-subFormData="subFormData" >
+    <div>
+        <!-- deviseSpecificSubform with mode = {{subFormData?.mode}} -->
+        <div class="flexRowWrap" > 
+            <label class="f-align">qcmResults id:</label>
+            <div class="f-align">
+                 <label class="f-max-size  mb-1">{{subFormData.obj.id}}</label>
+            </div>
+        </div>
+        <div class="flexRowWrap" > 
+            <label class="f-align">qcm id:</label>
+            <div class="f-align">
+                 <label class="f-max-size  mb-1">{{subFormData.obj.qcmId}}</label>
+            </div>
+        </div>
+        <div class="flexRowWrap" > 
+            <label class="f-align">performer:</label>
+            <div class="f-align">
+                ({{subFormData.obj.performer.org}}){{subFormData.obj.performer.fullName}}
+            </div>
+        </div>
+        <div class="flexRowWrap" > 
+            <label class="f-align">choices:</label>
+            <div class="f-align">
+                <span *ngFor="let c of subFormData.obj.choices">{{c.num}}:{{c.selectedAnswerNums}}&nbsp;</span>
+            </div>
+        </div>
+        <div class="flexRowWrap" > 
+            <label class="f-align">results:</label>
+            <div class="f-align">
+                {{subFormData.obj.globalResults.nbGoodResponses}} - {{subFormData.obj.globalResults.percentageScore}}%
+            </div>
+        </div>
+       
+    </div>
+  </ng-template>
+
+

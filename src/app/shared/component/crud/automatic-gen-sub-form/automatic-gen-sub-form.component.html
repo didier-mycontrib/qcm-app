@@ -1,0 +1,12 @@
+@for( key of objectKeysArray(objectTempRef()); track key){
+    <div class="flexRowWrap" > 
+    <label class="f-align">{{key}}:</label>
+    <div class="f-align">
+       @if(isNoEditableId(key)){
+        <label class="f-max-size  mb-1">{{objectTempRef()[key]}}</label>
+       }@else {
+        <input  [name]="key" class="f-max-size  mb-1" [(ngModel)]="objectTempRef()[key]" required />
+       }
+    </div>       
+  </div><!-- end of flexRowWrap -->
+}

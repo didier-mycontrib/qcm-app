@@ -1,0 +1,56 @@
+@use "d2f-common-base.scss"; /* should be provided by using app in stylePreprocessorOptions/includePaths of angular.json */
+/*NB: @import "xyz" will import ./xyz.scss if exists at first priority 
+if ./xyz.scss doesnt exist , xyz.scss will be search in all paths 
+of "stylePreprocessorOptions": {
+              "includePaths": [
+                "node-modules/d2f-ngx-commons/assets/scss"
+                "other_path_of_lower_priority/assets/scss" 
+              ]
+            }
+of angular.json file of app using this library .
+if several paths , first found is used , others are ignored .
+*/
+
+$myBgPrimary : rgb(10, 10, 148) !default;
+
+
+.my-toogle-panel {
+   margin-top : 2px;
+   margin-left : 4px;
+   margin-right : 4px;
+   margin-bottom : 4px;
+}
+
+
+ .mat-expansion-panel-header {
+    /*background-color: rgb(10, 10, 148) !important;*/
+    background-color: $myBgPrimary   !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    //height: 1.25em;
+ }
+
+ .mat-expansion-panel-header-title {
+    /*background-color: rgb(10, 10, 148) !important;*/
+    background-color: $myBgPrimary  !important;
+    color : white ;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+ };
+
+ ::ng-deep {
+   mat-expansion-panel {
+       .mat-expansion-panel-body {
+           padding: 0.2em;
+       }
+   }
+}
+
+ .mat-expansion-panel{
+   padding-bottom: 0px !important;
+   //border : 1px solid red !important;
+ }
+
+ ::ng-deep .my-toogle-panel-header .mat-expansion-indicator::after {
+    color : white ;
+ }

@@ -1,0 +1,63 @@
+/* old @import "/assets/css/d2f-common-layout.css"; temporary used as global style  */
+@use "d2f-common-layout.scss"; /* should be provided by using app in stylePreprocessorOptions/includePaths of angular.json */
+/*NB: @import "xyz" will import ./xyz.scss if exists at first priority 
+if ./xyz.scss doesnt exist , xyz.scss will be search in all paths 
+of "stylePreprocessorOptions": {
+              "includePaths": [
+                "node-modules/d2f-ngx-commons/assets/scss"
+                "other_path_of_lower_priority/assets/scss" 
+              ]
+            }
+of angular.json file of app using this library .
+if several paths , first found is used , others are ignored .
+*/
+
+/*d'abord les règles pour tous médias et tailles */
+
+.central-container-zone{
+    height:100%;
+    //border: 1px solid green;
+}
+
+.main-zone{
+    height:100%;
+   // border: 1px solid red;
+}
+
+
+.sideNav-zone{
+    height:100%;
+    width: 14em;
+    //border: 1px solid blue;
+}
+
+.little-margin {
+    margin-left: 0.5%;
+    margin-right:0.5%;
+}
+
+.flexAllInColumnDir {
+    height: 100%;
+    width: 99%;
+    display: flex; flex-direction: column;
+}
+
+.stickyHeaderFirstInFlexCol{
+    flex-shrink: 0;
+}
+
+
+
+.remainingContentInFlexCol{
+    flex-grow: 1; /*ensures that the container will take up the full height of the parent container*/
+    overflow-y: auto; /*adds scroll to this container*/
+}
+
+/* ensuite nouvelles regles pour taille > 600px de large) */
+@media screen and (min-width : 600px){
+
+
+}
+
+/* ensuite nouvelles regles pour taille > 600px de large) */
+/* noDisplayForLargeWidth in common/css/common-media-query.css */

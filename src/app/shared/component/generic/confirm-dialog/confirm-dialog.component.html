@@ -1,0 +1,11 @@
+<div class="my-dialog-container">
+  <mat-dialog-content>
+    <h3>{{data.question}}</h3>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="onCancel()">
+      <mat-icon inline=true class="red">cancel</mat-icon>No/Cancel</button> &nbsp;
+    <button mat-button (click)="onOk()">
+      <mat-icon inline=true class="green">check</mat-icon>Yes/Ok/Confirm</button>
+  </mat-dialog-actions>
+</div>

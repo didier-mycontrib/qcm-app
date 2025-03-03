@@ -1,0 +1,20 @@
+@use "d2f-common-layout.scss";
+
+.table-wrapper { height : 6em; border :1px solid black;}
+table  { border-collapse: collapse; width: 100%; border :1px solid black;}
+th, td {  border:1px solid black; font-size: smaller;}
+th     { background:rgb(220, 220, 220); text-align: left;}
+td     { background: white; text-align: left;  margin:0px;}
+tr     { line-height: 1em;}
+
+/* Fix table head */
+.tableContainerWithFixHead    { overflow: auto; height: 6em; }
+.tableContainerWithFixHead th { position: sticky; top: 0; z-index: 1; }
+
+.selected { 
+    //font-weight: bold; //with .width side 
+    color: blue;
+    text-shadow:0px 0.5px 0.5px blue; //without .width side effect
+}
+
+.msg { font-weight: bold;}

@@ -1,0 +1,23 @@
+@use "d2f-common-layout.scss";
+@use "d2f-common-form.scss";
+
+label.f-align {
+    width: 8em;
+    display: inline-block;
+    margin-left: 0.3em;
+    flex: 0 0 8em;
+  }
+  
+  .f-align {
+    margin-left: 0.3em;
+    flex: 1 1 auto;
+  }
+  
+  .f-max-size {
+    width: 97%;
+  }
+
+  .new{color : black}
+  .add{color : green}
+  .update{color : blue; font-weight: bold;}
+  .delete{color : red}

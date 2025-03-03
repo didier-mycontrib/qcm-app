@@ -1,0 +1,16 @@
+<!--
+<h1>app {{title}}</h1>
+ <router-outlet></router-outlet>
+  -->
+ 
+  <d2f-ngx-layout [title]="title"
+  [mainMenuDefs]="appMenuDefs" 
+  [quickMenuDefs]="quickMenuDefs"
+  [legalFooterMainText]="legalFooterMainText"
+  [legalFooterTemplateRef]="legalFooterContent"
+   >
+</d2f-ngx-layout>
+
+<ng-template #legalFooterContent>
+<u>author:</u>&nbsp; Didier Defrance
+</ng-template>

@@ -1,0 +1,23 @@
+nbQuestions: {{qcm?.nbQuestions}}
+<input type="button" (click)="addNewQuestion()" value="add new question" />
+&nbsp;<input type="button" (click)="removeLastQuestion()" value="remove last question" />
+<hr/>
+ <div *ngFor="let q of qcm?.questions; index as i">
+        <div>
+            <div class="flexRowWrap">
+                    <label>{{q.num}}</label>
+                    <div class="f-align">
+                     <input name="question" class="f-max-size  mb-1" [(ngModel)]="q.question" required />
+                    </div>
+            </div>
+            <div>
+                 <div *ngFor="let a of q.answers; index as j" class="flexRowWrap">
+                    <div>{{a.txtNum}}<input type="checkbox"  [(ngModel)]="a.ok"/></div>
+                   <div class="f-align">
+                      <input type="text" class="f-max-size  mb-1" [(ngModel)]="a.text" required/> 
+                    </div>
+                 </div> 
+            </div>
+            <hr/>
+        </div>
+ </div>

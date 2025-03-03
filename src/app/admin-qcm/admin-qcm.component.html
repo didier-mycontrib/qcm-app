@@ -1,0 +1,44 @@
+<generic-crud  [genericCrudContext]="genericCrudContext"
+               [genericCrudService]="qcmService"
+               [optionalSpecificSubFormTemplateRef]="qcmSpecificSubform">
+</generic-crud>
+
+<!--
+NB: subFormData as interface AbstractGenSubFormData
+with .mode ("newOne" or "existingOne") and .obj = object of form
+-->
+<ng-template #qcmSpecificSubform let-subFormData="subFormData" >
+    <div>
+        <!-- deviseSpecificSubform with mode = {{subFormData?.mode}} -->
+        <div class="flexRowWrap" > 
+            <label class="f-align">id:</label>
+            <div class="f-align">
+                 <label class="f-max-size  mb-1">{{subFormData.obj.id}}</label> 
+                <!-- <input name="id" class="f-max-size  mb-1" [(ngModel)]="subFormData.obj.id" />-->
+            </div>
+        </div>
+        <div class="flexRowWrap" > 
+            <label class="f-align">title:</label>
+            <div class="f-align">
+                <input name="title" class="f-max-size  mb-1" [(ngModel)]="subFormData.obj.title" />
+            </div>
+        </div>
+        <div class="flexRowWrap" > 
+            <label class="f-align">purpose:</label>
+            <div class="f-align">
+                <input type="radio"  value="training" name="mode" [(ngModel)]="subFormData.obj.purpose" /> training &nbsp;&nbsp;
+                <input type="radio"  value="eval"  name="mode" [(ngModel)]="subFormData.obj.purpose"  /> eval
+            </div>
+        </div>
+        <div class="flexRowWrap" > 
+            <label class="f-align">keywords:</label>
+            <div class="f-align">
+                <input name="keywords" class="f-max-size  mb-1" [(ngModel)]="subFormData.obj.keywords" />
+            </div>
+        </div>
+        <div class="flexRowWrap" >
+            <qcm-qcm-editor [qcm]="subFormData.obj"></qcm-qcm-editor>
+        </div>
+        
+    </div>
+  </ng-template>

@@ -1,0 +1,36 @@
+<h3>login-out </h3>
+<span [class.success]="isOk" 
+      [class.error]="!isOk">{{message}}</span>
+<hr/>
+<div *ngIf="userSessionEx.authenticated">
+   <h3 class="connected">you are connected</h3>
+   <p *ngIf="userSessionEx.userId && userSessionEx.userId != '' && userSessionEx.userId != '?'">userId: <span >{{userSessionEx.userId}}</span></p>
+   <p>userName: <span class="highlight">{{userSessionEx.userName}}</span></p>
+   <p *ngIf="userSessionEx.userRoles.length >0" >userRoles: <span class="highlight">{{userSessionEx.userRoles.join(',')}}</span></p>
+   <p *ngIf="userSessionEx.authToken">authToken: <span>{{userSessionEx.authToken}}</span></p>
+   <p *ngIf="userSessionEx.userDetails">details: <span>{{userSessionEx.userDetails}}</span></p>
+   <p><button (click)="onLogout()">logout</button></p>
+</div>
+
+<div *ngIf="!userSessionEx.authenticated" class="m-1">
+    <h3 class="disconnected">you are not yet connected</h3>
+    @if(loginMode == 'oauth2') {
+        <ng-container *ngTemplateOutlet="oauth2Login"></ng-container>
+    }
+</div>
+<!--
+<hr/>
+<p>userSession: {{userSessionEx | json}}</p>
+-->
+
+<!--  oauth2Login template -->
+<ng-template #oauth2Login>
+    <a href="https://www.d-defrance.fr/keycloak/realms/d2frealm/.well-known/openid-configuration" target="_new">openid-configuration</a> &nbsp;<span class="redClass">(delete old cookies if necessary (login error) !!!)</span> <br/>
+    <p>
+        <button (click)="onOAuth2Login()" >oauth2 Login</button> &nbsp;&nbsp;
+        <button (click)="onLogout()" >oauth2 Logout</button> &nbsp;<span class="redClass">(if logout error, go back and try login)</span>
+    </p>    
+    <div>
+     d2frealm (d2f/........)
+    </div>
+</ng-template>

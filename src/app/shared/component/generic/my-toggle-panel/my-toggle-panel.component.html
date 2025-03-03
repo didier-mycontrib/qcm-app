@@ -1,0 +1,20 @@
+<mat-expansion-panel (opened)="panelOpenState.set(true)"
+                    (closed)="panelOpenState.set(false)"
+                    class="my-toogle-panel"
+                    [expanded]="panelOpenState()">
+    <mat-expansion-panel-header class="my-toogle-panel-header"
+    [collapsedHeight]="'1.5em'"  [expandedHeight]="'1.5em'">
+        <mat-panel-title>
+           {{title()}} 
+        </mat-panel-title>
+     
+        <!--
+        <mat-panel-description>
+            Currently I am {{panelOpenState ? 'open' : 'closed'}}
+        </mat-panel-description>
+        -->
+    </mat-expansion-panel-header>
+   
+    <ng-content></ng-content>
+   
+</mat-expansion-panel>

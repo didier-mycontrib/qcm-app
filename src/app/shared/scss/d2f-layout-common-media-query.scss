@@ -1,0 +1,28 @@
+/*d'abord les regles pour tous medias et tailles */
+
+
+/* ensuite nouvelles regles pour taille > 600px de large) */
+@media screen and (min-width : 600px){
+
+    .noDisplayForLargeWidth{
+        display : none;
+    }
+
+    .noDisplayForSmallWidth{
+        display : block;
+    }
+
+}
+
+/* ensuite nouvelles regles pour taille < 600px de large) */
+@media screen and (max-width : 600px){
+
+    .noDisplayForLargeWidth{
+        display: block;
+    }
+
+    .noDisplayForSmallWidth{
+        display : none;
+    }
+
+}

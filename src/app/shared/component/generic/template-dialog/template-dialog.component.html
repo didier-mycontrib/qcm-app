@@ -1,0 +1,15 @@
+<div class="my-dialog-container">
+  <mat-dialog-content>
+    <h3>{{data.title}}</h3>
+    <div class="right-align">
+      <ng-container  *ngTemplateOutlet="data.template"></ng-container>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="onCancel()">
+      <mat-icon inline=true class="red">cancel</mat-icon>Cancel/Default</button>
+      &nbsp;
+    <button mat-button (click)="onOk()">
+      <mat-icon inline=true class="green">check</mat-icon>Ok</button>
+  </mat-dialog-actions>
+</div>

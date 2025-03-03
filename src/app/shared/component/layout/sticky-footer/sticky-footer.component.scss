@@ -1,0 +1,25 @@
+@use "d2f-common-layout.scss";
+
+.light-footer { background-color: ghostwhite; color : black;}
+
+.top-border { border-top : 1px solid  blue; }
+
+.withLeftPadding{
+    padding-left: 0.1em;
+  }
+  
+  .withRightPadding{
+    padding-right: 0.1em;
+  }
+  
+  .withRightMargin{
+    padding-right: 0.1em;
+  }
+  
+  
+  .customIconSize {
+    /*default : 24px*/
+    font-size: 18px;
+    height: 18px ;
+    width: 18px ;
+  }

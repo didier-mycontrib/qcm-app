@@ -1,0 +1,59 @@
+.goodChoice.goodResponse{
+    color : green;
+    font-weight : bold;
+}
+
+.goodChoice.goodResponse.withoutSolution {
+    visibility : hidden
+}
+
+.goodChoice.badResponse{
+    visibility : hidden;
+}
+
+.badChoice.goodResponse{
+    visibility : hidden;
+}
+
+.badChoice.goodResponse.withoutSolution{
+    visibility : hidden;
+}
+
+.badChoice.badResponse{
+    color : red;
+    font-weight : bold;
+}
+
+.response.goodResponse.withSolution{
+    text-decoration : none;
+    color : rgb(40, 40, 150);
+    font-weight : bold;
+}
+
+.response.goodResponse.withoutSolution{
+    text-decoration : none;
+}
+
+.response.badResponse.withoutSolution,
+.response.badResponse.withSolution{
+    text-decoration : none;
+}
+.response.badResponse.badChoice.witSolution{
+    text-decoration : line-through;
+}
+
+.smallHeight{
+    font-family:  'Arial Narrow', Arial, sans-serif
+}
+
+.goodQuestion{
+    color : green;
+}
+
+.badQuestion{
+    color : red;
+}
+
+.highlight{
+    font-weight : bold;
+}

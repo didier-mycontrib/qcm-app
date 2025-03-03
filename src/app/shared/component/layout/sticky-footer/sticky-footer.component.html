@@ -1,0 +1,45 @@
+<div class="light-footer top-border" [style.width]="'99%'">
+      
+      <!-- for small width only -->
+      <div class="flexColumnNoWrap">
+        <div class="flexItem noDisplayForLargeWidth">    
+          <div class="flexRowNoWrap">
+              <span class="fixed1emFlexItem left-text-align withLeftPadding"
+                  (click)="onTogglerLegalFooterClick()">
+                  @if(expandLegalFooterInSmallSize){
+                    <mat-icon class="customIconSize">remove</mat-icon>
+                  }@else {
+                    <mat-icon class="customIconSize">add</mat-icon>
+                  }
+                </span> 
+               <span  class="flexItem center-text-align">
+                    <mylayout-quick-menu [quickMenuDefs]="quickMenuDefs()"></mylayout-quick-menu>
+               </span>
+          </div>
+        </div>
+        @if(expandLegalFooterInSmallSize){
+        <div class="flexItem noDisplayForLargeWidth">
+            <ng-container *ngTemplateOutlet="legalFooter"></ng-container>
+        </div>
+        }
+      </div>
+
+      <!-- for large width only -->
+       <div class="noDisplayForSmallWidth">
+          <ng-container *ngTemplateOutlet="legalFooter"></ng-container>
+       </div>
+
+</div>
+
+<ng-template #legalFooter>
+    <mylayout-legal-footer [legalFooterMainText]="legalFooterMainText()" 
+                           [legalFooterTemplateRef]="legalFooterTemplateRef()"
+                           [(footerPanelExpand)]="expandLegalFooterInSmallSize" ></mylayout-legal-footer>
+</ng-template>
+
+
+
+<!--
+noDisplayForSmallWidth and noDisplayForLargeWidth
+are "ok" with flexItem but not with flexColumnNoWrap or flexRowNoWrap
+-->

@@ -1,0 +1,90 @@
+/*
+IMPORTANT : ce fichier de styles scss reutilisables est prevu 
+pour integre en mode @import dans de futures applications "angular"
+via 
+"stylePreprocessorOptions": {
+              "includePaths": [
+                "node-modules/d2f-ngx-commons/assets/scss"
+                "other_path_of_lower_priority/assets/scss" 
+              ]
+            }
+de angular.json de ces applications
+
+il suffit ensuite d'ajouter 
+@use "d2f-common-base.scss"; 
+dans le haut d'un fichier xyz.component.scss 
+(existant dans une autre libraire d2f-ngx-xyz ou bien à créer dans l'application)
+
+*/
+
+@use "d2f-layout-common-media-query.scss";
+
+.mt-1{
+    margin-top: 0.25em;
+}
+
+.mb-1{
+    margin-bottom: 0.25em;
+}
+
+.m-1{
+    margin: 0.25em;
+}
+
+.p-1{
+    padding: 0.25em;
+}
+
+.flexColumnNoWrap {
+    display: flex; 
+    flex-direction: column;
+    flex-wrap : nowrap;
+}
+
+.flexRowNoWrap {
+    display: flex; 
+    flex-direction: row;
+    flex-wrap : nowrap;
+   align-items : center;
+}
+
+.flexColumnWrap {
+    display: flex; 
+    flex-direction: column;
+    flex-wrap : wrap;
+}
+
+.flexRowWrap {
+    display: flex; 
+    flex-direction: row;
+    flex-wrap : wrap;
+    align-items : center;
+}
+
+.flexItem {
+    flex: 1 1 auto;
+}
+
+.flexItemNone {
+    flex: none; //as 0 0 auto
+}
+
+.fixed2emFlexItem {
+    flex: 0 0 2em;
+}
+
+.fixed1emFlexItem {
+    flex: 0 0 1em;
+}
+
+.left-text-align {
+    text-align: left;
+}
+
+.right-text-align {
+    text-align: right;
+}
+
+.center-text-align {
+    text-align: center;
+}

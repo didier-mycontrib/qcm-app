@@ -1,0 +1,52 @@
+/* old @import "/assets/css/d2f-common-layout.css"; temporary used as global style  */
+@use "d2f-common-layout.scss"; /* should be provided by using app in stylePreprocessorOptions/includePaths of angular.json */
+/*NB: @import "xyz" will import ./xyz.scss if exists at first priority 
+if ./xyz.scss doesnt exist , xyz.scss will be search in all paths 
+of "stylePreprocessorOptions": {
+              "includePaths": [
+                "node-modules/d2f-ngx-commons/assets/scss"
+                "other_path_of_lower_priority/assets/scss" 
+              ]
+            }
+of angular.json file of app using this library .
+if several paths , first found is used , others are ignored .
+*/
+
+.flexRowWrap {
+    align-items : stretch !important; /* redefinition , not center nor start nor end here */
+}
+
+/* Fix table head */
+.tableContainerWithFixHead    { overflow: auto; height: 100px; }
+.tableContainerWithFixHead th { position: sticky; top: 0; }
+
+/* Just common table stuff. */
+table  { border-collapse: collapse; width: 100%;border :1px solid black;}
+th, td { padding: 1px 1px; border:1px solid black;}
+th     { background:#eee; text-align: left;}
+
+.selected { 
+      //font-weight: bold; //with .width side effect
+      text-shadow:0px 0.5px 0.5px blue; //without .width side effect
+}
+
+.mat-card-header {
+    color : white !important; 
+    background-color: blue !important;
+}
+
+label.f-align {
+    width: 8em;
+    display: inline-block;
+    margin-left: 0.3em;
+    flex: 0 0 8em;
+  }
+  
+  .f-align {
+    margin-left: 0.3em;
+    flex: 1 1 auto;
+  }
+  
+  .f-max-size {
+    width: 97%;
+  }

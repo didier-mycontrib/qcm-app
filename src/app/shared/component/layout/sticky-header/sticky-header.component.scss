@@ -1,0 +1,40 @@
+/* old @import "/assets/css/d2f-common-layout.css"; temporary used as global style  */
+@use "d2f-common-layout.scss"; /* should be provided by using app in stylePreprocessorOptions/includePaths of angular.json */
+/*NB: @import "xyz" will import ./xyz.scss if exists at first priority 
+if ./xyz.scss doesnt exist , xyz.scss will be search in all paths 
+of "stylePreprocessorOptions": {
+              "includePaths": [
+                "node-modules/d2f-ngx-commons/assets/scss"
+                "other_path_of_lower_priority/assets/scss" 
+              ]
+            }
+of angular.json file of app using this library .
+if several paths , first found is used , others are ignored .
+*/
+
+.my-header { background-color: white;  }
+.highlight { font-weight: bold;}
+.title { color : blue; }
+.degradeDeBleu {
+    background: linear-gradient(to bottom right , rgba(80, 67, 227, 0.9), rgba(245, 245, 245, 0.9));
+  }
+
+.withLeftPadding{
+  padding-left: 0.1em;
+}
+
+.withRightPadding{
+  padding-right: 0.1em;
+}
+
+.withRightMargin{
+  padding-right: 0.1em;
+}
+
+
+.customIconSize {
+  /*default : 24px*/
+  font-size: 18px;
+  height: 18px ;
+  width: 18px ;
+}
