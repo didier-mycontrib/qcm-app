@@ -49,9 +49,9 @@ pipeline {
 			  script{
 					echo "docker_registry=" + docker_registry
 					echo "dockerhub_credential_id=" +dockerhub_credential_id
-					//docker.withRegistry( docker_registry, dockerhub_credential_id ) { 
-					//     dockerImage.push() 
-					//	 }
+					docker.withRegistry( docker_registry, dockerhub_credential_id ) { 
+					     dockerImage.push() 
+						 }
 					  }
 				  }
 		}
