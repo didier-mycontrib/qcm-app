@@ -1,5 +1,6 @@
 @use "d2f-common-layout.scss";
 @use "d2f-common-form.scss";
+.selected { color: blue; font-weight: bold;}
 
 
 label.f-align {
@@ -8,9 +9,16 @@ label.f-align {
     margin-left: 0.3em;
     flex: 0 0 8em;
   }
-
+  
   .f-align {
     margin-left: 0.3em;
     flex: 1 1 auto;
   }
   
+  .f-max-size {
+    width: 97%;
+  }
+
+  #qcmImportArea{  
+    min-width:500px; max-width:100%; min-height:250px;  width:100%;
+}

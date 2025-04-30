@@ -9,6 +9,7 @@ import { AdminQcmResultsComponent } from './admin-qcm-results/admin-qcm-results.
 import { LoginOutComponent } from './login-out/login-out.component';
 import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 import { authGuard } from './common/guard/auth.guard';
+import { ImportExportQcmComponent } from './import-export-qcm/import-export-qcm.component';
 
 export const routes: Routes = [
     { path: 'ngr-home', component: HomeComponent },
@@ -24,6 +25,7 @@ export const routes: Routes = [
     },
     { path: 'ngr-admin-qcm', component: AdminQcmComponent  , canActivate: [authGuard]  },
     { path: 'ngr-admin-qcm-results', component: AdminQcmResultsComponent , canActivate: [authGuard] },
+    { path: 'ngr-import-export-qcm', component: ImportExportQcmComponent, canActivate: [authGuard] },
     { path: '', redirectTo: '/ngr-home', pathMatch: 'full'},
     { path: '**', redirectTo: '/ngr-home', pathMatch: 'full'}
 ];

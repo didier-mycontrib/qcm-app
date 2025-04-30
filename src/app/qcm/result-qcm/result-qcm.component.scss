@@ -57,3 +57,11 @@
 .highlight{
     font-weight : bold;
 }
+
+table.with-border, table.with-border th, table.with-border  td {
+    border: 1px solid;
+  }
+
+  p {
+    line-height: 1em ;  margin: 0; padding: 0;
+  }

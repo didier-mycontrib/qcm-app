@@ -1,8 +1,7 @@
-<div class="flexRowNoWrap">
-      <div class="flexItem">  
-           <my-card title="1. mode & options">
-               <div class="card-body fondParDefaut">
-                   <form role="form" #formOptions="ngForm"
+<my-toggle-panel title="1. mode & options"
+[(panelOpenState)]="modeOpenState"
+(panelOpenStateChange)="onExclusiveOpenState(modeOpenState)">
+     <form role="form" #formOptions="ngForm"
                    method="POST" encType="multipart/form-data"  id="formOptions" class="form-horizontal">
                      
                    <my-formgroup-label [label]="'mode'">
@@ -30,49 +29,40 @@
                          name="email" [(ngModel)]="qcmService.qcmSession.performer.email" />
                     </my-formgroup-label> 
                       
-                   </form>
-               </div>
-           </my-card>
-            <p></p>
-            <my-card title="3. action">
-                            <div class="card-body fondParDefaut">
-                                 <input  type="button" value="effectuer qcm" (click)="onEffectuerQcm()" 
-                                 [disabled]="!isReadyForPerform()" /> 
-                                 {{selectedQcm?.title}}
-                            </div>
-            </my-card> 
-        </div> <!-- end flexItem -->
-    <div class="flexItem">
-      <my-card title="2. sélection">  
-           <div class="card-body fondParDefaut">
-                <form role="form" #formFiltrage="ngForm"
-            method="POST" encType="multipart/form-data"  id="formFiltrage" class="form-horizontal">
-              
-               <my-formgroup-label [label]="'filtre'">
-                    <input type="text" class="form-control"
-                    name="filtre" [(ngModel)]="filtre" />
-               </my-formgroup-label>   
+          </form>
+</my-toggle-panel>
 
-               <div class="form-group row">
-                    <div class="offset-sm-3 col-sm-9">
-                    <input  type="submit" class="btn my-bg-primary text-white" 
-                            value="1a. actualiser la liste" 
-                            (click)="onListeQcmAvecFiltrage()" /> &nbsp;&nbsp; <span>{{msgFiltrage}}</span>
-                    </div>
-                  </div>
-            </form>
-            <hr/>
-            2b. sélectionner un qcm (click):
-            <ul>
-               <li *ngFor="let q of listeQcm">
-                  <span (click)="onSelectQcm(q)" [class.selected]="q==selectedQcm"> {{q.title}}  </span> 
-               </li>     
-            </ul>
-           </div>
-      </my-card> <!-- end of card-->
-    </div> <!-- end of flexItem -->
-    
-</div> <!-- end of flex-->
-                       
+<my-toggle-panel title="2. sélection et action"
+[(panelOpenState)]="selectionOpenState"
+(panelOpenStateChange)="onExclusiveOpenState(selectionOpenState)">
+   <form role="form" #formFiltrage="ngForm"
+     method="POST" encType="multipart/form-data"  id="formFiltrage" class="form-horizontal">
+     
+     <my-formgroup-label [label]="'filtre'">
+          <input type="text" class="form-control"
+          name="filtre" [(ngModel)]="filtre" />
+     </my-formgroup-label>   
+
+     <div class="form-group row">
+          <div class="offset-sm-3 col-sm-9">
+          <input  type="submit" class="btn my-bg-primary text-white" 
+                    value="a. actualiser la liste" 
+                    (click)="onListeQcmAvecFiltrage()" /> &nbsp;&nbsp; <span>{{msgFiltrage}}</span>
+          </div>
+          </div>
+    </form>
+     <hr/>
+     b. sélectionner un qcm (click):
+     <ul>
+          <li *ngFor="let q of listeQcm">
+               <span (click)="onSelectQcm(q)" [class.selected]="q==selectedQcm"> {{q.title}}  </span> 
+          </li>     
+     </ul>
+     <hr/>
+     <input  type="button" value="c. effectuer qcm" (click)="onEffectuerQcm()" 
+     [disabled]="!isReadyForPerform()" /> 
+     {{selectedQcm?.title}}
+</my-toggle-panel>
+
 
 

@@ -96,8 +96,16 @@ export class PerformQcmComponent implements OnInit {
                                       this.qcmSession.mode)
        .subscribe(
          (resp:PostChoicesResponse)=>{ 
+                  //console.log("postQcmChoices resp="+JSON.stringify(resp));
                   console.log("resultsId="+resp.qcmResultsId);
-                  this.qcmService.qcmSession.qcm=resp.qcm;//with .solutions 
+                  //store user choices (to not lost them)
+                  let qcmSessionChoices = this.qcmService?.qcmSession?.qcm?.choices;
+
+                  let qcmInSessionInService = this.qcmService.qcmSession.qcm=resp.qcm;//with .solutions in mode=training or ...
+                 
+                  if(qcmInSessionInService!=null)
+                       qcmInSessionInService.choices=qcmSessionChoices; //restore user choices under .qcm
+                      
                   this.qcmSession.results=resp.globalResults;
                   let link = ['/ngr-qcm/results']; 
                   this.router.navigate( link );

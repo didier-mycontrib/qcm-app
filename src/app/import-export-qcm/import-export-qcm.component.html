@@ -1,0 +1,45 @@
+<h4></h4>
+<my-toggle-panel title="export (pour sauvegarde) de qcm existant"
+[(panelOpenState)]="exportOpenState"
+(panelOpenStateChange)="onExclusiveOpenState(exportOpenState)">
+    <form role="form" #formFiltrage="ngForm"
+        method="POST"  id="formFiltrage" class="form-horizontal">
+
+        <my-formgroup-label [label]="'mode'">
+            <input type="radio"  value="training" name="mode" [(ngModel)]="mode" (ngModelChange)="reinit()"/> training &nbsp;&nbsp;
+            <input type="radio"  value="eval"  name="mode" [(ngModel)]="mode" (ngModelChange)="reinit()" /> eval
+    </my-formgroup-label> 
+
+        <my-formgroup-label [label]="'filtre'">
+            <input type="text" class="form-control"
+            name="filtre" [(ngModel)]="filtre" />
+        </my-formgroup-label>   
+
+        <div class="form-group row">
+            <div class="offset-sm-3 col-sm-9">
+            <input  type="submit" class="btn my-bg-primary text-white" 
+                        value="a. actualiser la liste" 
+                        (click)="onListeQcmAvecFiltrage()" /> &nbsp;&nbsp; <span>{{msgFiltrage}}</span>
+            </div>
+            </div>
+        </form>
+        <hr/>
+        b. sélectionner un qcm à exporter(click):
+        <ul>
+            <li *ngFor="let q of listeQcm">
+                <span (click)="onExportQcm(q)" [class.selected]="q==selectedQcm"> {{q.title}}  </span> 
+            </li>     
+        </ul>
+        <hr/>
+        c. copier/coller le contenu (ci-dessous) du qcm exporté au sein d'un nouveau fichier .json
+        <hr/>
+        <div id="qcmExportArea">{{exportedQcm$ | async | json}}</div>
+     </my-toggle-panel>
+
+<my-toggle-panel title="import (réintégration) de qcm sauvegardé"
+[(panelOpenState)]="importOpenState"
+(panelOpenStateChange)="onExclusiveOpenState(importOpenState)">
+<button (click)="onImportQcm()">importer/réintégrer le contenu ci dessous (Qcm JSON)</button>
+<div>{{importMessage}}</div>
+<textarea id="qcmImportArea" [(ngModel)]="importedJsonQcm"></textarea>
+</my-toggle-panel>

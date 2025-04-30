@@ -25,7 +25,7 @@ export class ResultQcmComponent implements OnInit {
   }
 
   setRespClasses(indexQuestion:number,indexResponse:number){
-    let goodChoice = this.isGoodChoice(indexQuestion,indexResponse);
+    //let goodChoice = this.isGoodChoice(indexQuestion,indexResponse);
     let badResponse = this.isBadResp(indexQuestion,indexResponse);
     return {
       // CSS classes names
@@ -74,8 +74,12 @@ export class ResultQcmComponent implements OnInit {
 
   isGoodChoice(indexQuestion:number,indexResponse:number):boolean{
     if(this.qcmSession == null) return false;
+    //console.log("isGoodChoice: qcmSession="+JSON.stringify(this.qcmSession))
     if(this.qcmSession.qcm == null) return false;
+    //console.log("isGoodChoice: qcmSession.qcm="+JSON.stringify(this.qcmSession.qcm))
+    //console.log("isGoodChoice: qcmSession.qcm.choices="+JSON.stringify(this.qcmSession.qcm.choices))
     if(this.qcmSession.qcm.choices == null) return false;
+    //console.log("isGoodChoice: qcmSession.qcm.solutions="+JSON.stringify(this.qcmSession.qcm.solutions))
     let tabGoodAnswersNums = this.qcmSession.qcm.solutions[indexQuestion].goodAnswerNums;
     let tabChoicesNums = this.qcmSession.qcm.choices[indexQuestion].selectedAnswerNums;
     let txtNum = this.tabResNumFromIndex[indexResponse];

@@ -1,5 +1,5 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { Component, HostListener, input, Input, InputSignal, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, HostListener, input, Input, InputSignal, model, ModelSignal, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
 import { MenuDef } from '../../data/menu-def';
 import { StickyHeaderComponent } from './sticky-header/sticky-header.component';
@@ -56,7 +56,9 @@ export class D2fNgxLayoutComponent implements OnInit {
   constructor(private _breakpointObserver: BreakpointObserver) { }
 
   //public innerWidth: any; //v1 (without BreakpointObserver)
-  openedSideNav : boolean = false;
+  openedSideNav : ModelSignal<boolean> = model(false);
+  defaultOpenedSideNav : InputSignal<boolean> = input(true);
+
   sideNavMode : MatDrawerMode = "side";  
   /* mode = side , push (auto-close when click on main content) or
   over (idem as push but over / no slide )*/
@@ -85,9 +87,10 @@ export class D2fNgxLayoutComponent implements OnInit {
   displaySideMenuIfLargeWidth(){
     this.sideNavMode="side";
     if (this.isSmall==true ) {
-      this.openedSideNav = false;
+      this.openedSideNav.set(false);
     } else {
-      this.openedSideNav = true;
+      console.log("defaultOpenedSideNav="+this.defaultOpenedSideNav());
+      this.openedSideNav.set(this.defaultOpenedSideNav());
     } 
   }
 
@@ -104,14 +107,14 @@ export class D2fNgxLayoutComponent implements OnInit {
   onAfterNav(evt : any){
     if (this.isSmall==true && this.matSideNav ) {
       this.matSideNav.close();
-      this.openedSideNav=false;
+      this.openedSideNav.set(false);
     }
   }
 
   onTogglerMenu(){
     //need to display menu if necessary (small width)
     //console.log("onTogglerMenu()")
-    this.openedSideNav=!this.openedSideNav;
+    this.openedSideNav.set(!this.openedSideNav());
   }
 
   /*

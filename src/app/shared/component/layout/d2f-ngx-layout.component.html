@@ -8,7 +8,7 @@
       <mat-sidenav-container class="central-container-zone">
         <!-- mode = side , push (auto-close when click on main content) or
                           over (idem as push but over / no slide )-->
-        <mat-sidenav #matSideNav [mode]="sideNavMode" [opened]="openedSideNav"
+        <mat-sidenav #matSideNav [mode]="sideNavMode" [opened]="openedSideNav()"
             (mouseenter)="onMenuMouseEnterInMainSideNav()" class="sideNav-zone">
             <mylayout-main-side-nav id="main-side-nav" [menuDefs]="mainMenuDefs()"
                   (afterNav)="onAfterNav($event)"></mylayout-main-side-nav> <!-- with main/complete menu -->

@@ -3,7 +3,7 @@
 <p>score (pourcentage): <span class="highlight">{{qcmResults?.percentageScore}} % </span></p> 
 <hr/>
 <h5>détails des <span *ngIf="mode=='training'">bonnes et mauvaises</span> réponses</h5>
-<table class="table table-bordered border-primary">
+<table class="with-border">
     <tr><th>questions</th><th>choix</th><th><span *ngIf="mode=='training'">bonnes </span>réponses</th></tr>
     <tr *ngFor="let q of qcmSession.qcm?.questions; index as i">
         <td><p [ngClass]="setQuestionClasses(i)">

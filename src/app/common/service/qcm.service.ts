@@ -47,6 +47,13 @@ export class QcmService extends GenericRestCrudService<Qcm> {
     //NB: PostChoicesResponse contains .qcm with .choices
   }
 
+  public getQcmWithSolutionsById$(qcmId:string):Observable<Qcm>{
+    //Nb: /public/qcm without solutions , /private/qcm with solutions
+    let url : string = `/qcm-api/private/qcm/${qcmId}`;
+    return this.http.get<Qcm>(url );
+  }
+
+
 
 }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, effect, OnInit, Signal, signal, ViewChild, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter , flatMap , toArray} from 'rxjs/operators';
 import { Qcm } from '../../common/data/qcm';
@@ -7,10 +7,11 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { MyCardComponent } from '../../shared/component/generic/my-card/my-card.component';
 import { MyFormGroupWithLabelComponent } from '../../shared/component/generic/my-form-group-with-label/my-form-group-with-label.component';
+import { MyTogglePanelComponent } from '../../shared/component/generic/my-toggle-panel/my-toggle-panel.component';
 
 @Component({
   selector: 'app-option-qcm',
-  imports: [FormsModule,NgFor,NgIf,MyCardComponent,MyFormGroupWithLabelComponent],
+  imports: [FormsModule,NgFor,NgIf,MyCardComponent,MyFormGroupWithLabelComponent,MyTogglePanelComponent],
   templateUrl: './option-qcm.component.html',
   styleUrls: ['./option-qcm.component.scss']
 })
@@ -18,6 +19,20 @@ export class OptionQcmComponent implements OnInit {
 
   @ViewChild('formOptions', {static: true}) 
   private formOptions : NgForm | undefined;
+
+  modeOpenState=signal(true);
+  selectionOpenState=signal(false);
+
+  exclusiveOpenStates = [ this.modeOpenState , this.selectionOpenState ];
+  
+  onExclusiveOpenState(oss : WritableSignal<boolean>){
+     //console.log(`onExclusiveOpenState oss=${oss}`)
+     for(let otherOss of this.exclusiveOpenStates ){
+      if(otherOss!=oss && otherOss()){
+        otherOss.set(false)
+      }
+     }
+  }
 
   //specifications for qcm options ("default" or ...)
   public specif : string | null = null;

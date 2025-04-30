@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    //agent any
+    //agent { label 'node' }
+    agent { label '! without-node' }
 	environment{
 	    //NB: credential_dockerhub_didierdefrance69 is ID of credential
 		//prepared in "Admin Jenkins / Credentials / system /global"

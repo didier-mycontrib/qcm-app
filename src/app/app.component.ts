@@ -14,7 +14,7 @@ import { MenuDef } from './shared/data/menu-def';
 export class AppComponent {
   title = 'qcm-app';
 
-  legalFooterMainText ="this app legal footer"
+  legalFooterMainText ="qcm app legal footer"
 
   appMenuDefs : MenuDef[] = [
     new MenuDef("home","/ngr-home"),
@@ -30,6 +30,7 @@ export class AppComponent {
     new MenuDef("login-out","/ngr-login-out"),
     new MenuDef("admin-qcm","/ngr-admin-qcm"),
     new MenuDef("admin-qcm-results","/ngr-admin-qcm-results"),
+    new MenuDef("import/export-qcm","/ngr-import-export-qcm"),
     /*
     new MenuDef("admin ...",null,[
       new MenuDef("qcm","/ngr-admin-qcm"),
