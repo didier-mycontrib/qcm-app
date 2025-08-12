@@ -1,7 +1,8 @@
 pipeline {
     //agent any
-    //agent { label 'node' }
-    agent { label '! without-node' }
+     docker {
+		 image 'node:22'  
+	}
 	environment{
 	    //NB: credential_dockerhub_didierdefrance69 is ID of credential
 		//prepared in "Admin Jenkins / Credentials / system /global"
@@ -10,7 +11,7 @@ pipeline {
 		//dockerRegistry is dockerhub
 		docker_registry= 'https://registry.hub.docker.com'
 		
-		docker_image_name='didierdefrance69/qcm-app:1'
+		docker_image_name='didierdefrance69/qcm_app:1'
 	}
     stages {
 	    //stage('from_git') {
@@ -37,15 +38,12 @@ pipeline {
             }
         }
 		stage('build_docker_image') {
-			steps {
-            //sh 'docker build -t didierdefrance69/qcm-app:1 .'
-            //with Pipeline docker plugin:
-			script{
-				    echo "docker_image_name=" + docker_image_name
-					dockerImage = docker.build(docker_image_name)
-				  }
-			   }
-        }
+	     steps {
+		     script{ 
+			      dockerImage = docker.build(docker_image_name)
+			    }
+		    } 
+		}
 		stage('push_docker_image') {
             steps {
 			  script{
