@@ -1,8 +1,10 @@
 pipeline {
     //agent any
-     docker {
+    agent {
+        docker {
 		 image 'node:22'  
-	}
+		}
+    }
 	environment{
 	    //NB: credential_dockerhub_didierdefrance69 is ID of credential
 		//prepared in "Admin Jenkins / Credentials / system /global"
