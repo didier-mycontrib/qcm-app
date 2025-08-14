@@ -3,7 +3,9 @@ pipeline {
     agent {
         docker {
 		 //image 'node:22' 
-		 image 'node_ts_cypress'  
+		 //https://github.com/didier-mycontrib/jenkins-dind build-docker-images/node_ts_cypress
+		 //prepared image with node:24, typescript, cypress , ...
+		 image 'didierdefrance69/node_ts_cypress:1'  
 		}
     }
 	environment{
