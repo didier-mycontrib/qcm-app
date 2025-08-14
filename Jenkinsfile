@@ -2,7 +2,8 @@ pipeline {
     //agent any
     agent {
         docker {
-		 image 'node:22'  
+		 //image 'node:22' 
+		 image 'node_ts_cypress'  
 		}
     }
 	environment{
@@ -27,16 +28,22 @@ pipeline {
 				sh 'npm install'
             }
         }
-		stage('tests') {
+		stage('unit-tests') {
             steps {
-				echo 'run ic script of package.json (start-server-and-test(http-server,3000,cypress))'
-				//sh 'npm run ic'
+				echo 'run angular unit tests'
+				//sh 'npm run test'
             }
         }
 		stage('build') {
             steps {
 				echo 'build angular app with ssr'
 				sh 'npm run build'
+            }
+        }
+		stage('ic-tests') {
+            steps {
+				echo 'run ic script of package.json (start-server-and-test(ssr-qcm-app-server,4000,cypress))'
+				sh 'npm run ic'
             }
         }
 		stage('build_docker_image') {
