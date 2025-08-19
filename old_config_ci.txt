@@ -3,4 +3,10 @@
 
 problème : pas de reverse proxy si on lance directement node dist/qcm-app/server/server.mjs
 ========
-mieux vaut donc lancer http-server un peu paramétrable du coté reverse-proxy
+mieux vaut donc lancer http-server un peu paramétrable du coté reverse-proxy:
+
+ng build (ok for ssr)
+ng build --ssr=false --prerender=false (no ssr , generate browser/index.html)
+ng build --ssr=true --prerender=false (ok ssr , generate browser/index.csr.html instead of index.html)
+http-server --port 3000 --proxy https://www.d-defrance.fr -c-1 dist/qcm-app/browser 
+et http://localhost:3000/index.csr.html
