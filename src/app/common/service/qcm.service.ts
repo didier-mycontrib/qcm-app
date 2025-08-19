@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Qcm, ResponseChoices, QcmPerformer, QcmResults } from '../data/qcm';
@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import {  map} from 'rxjs/operators';
 import { PostChoicesRequest, PostChoicesResponse } from '../data/postChoicesData';
 import { GenericRestCrudService } from '../../shared/service/generic-rest-crud-service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,7 @@ export class QcmService extends GenericRestCrudService<Qcm> {
     if(org!=null) endUrlWithCriteria+=`&org=${org}`;
     if(code!=null) endUrlWithCriteria+=`&code=${code}`;
     if(endUrlWithCriteria.length>0) endUrlWithCriteria="?"+endUrlWithCriteria.substring(1);
+    
     return this.findObjectsFromCriteria$(endUrlWithCriteria);
   }
 

@@ -1,0 +1,6 @@
+"ic" : "start-server-and-test 'node dist/qcm-app/server/server.mjs' 4000 'npx cypress run --spec ./cypress/e2e/myTest.spec.cy.js --reporter json --reporter-options output=test-report.json'" ,
+    "serve:ssr:qcm-app": "node dist/qcm-app/server/server.mjs"
+
+problème : pas de reverse proxy si on lance directement node dist/qcm-app/server/server.mjs
+========
+mieux vaut donc lancer http-server un peu paramétrable du coté reverse-proxy

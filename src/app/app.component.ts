@@ -44,4 +44,22 @@ export class AppComponent {
       new MenuDef("admin qcm","/ngr-admin-qcm"),
       new MenuDef("results","/ngr-admin-qcm-results"),
   ];
+
+  public ajustUrlWithEnvContext(url:string):string {
+    let ajustUrl=url;
+    const mainApiPrefix= "https://www.d-defrance.fr/"
+    const absoluteUrl = process.env['ABSOLUTE_URL']|| "no";
+    if(absoluteUrl=="yes"){
+        ajustUrl=mainApiPrefix+ajustUrl
+    }
+    /*
+    const apiKey = process.env['API_KEY']|| "";
+    if(apiKey!=""){
+        ajustUrl=`${ajustUrl}?apiKey=${apiKey}`;
+    }
+    */
+    return ajustUrl;
+  }
+  
+  
 }

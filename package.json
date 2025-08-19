@@ -7,7 +7,7 @@
     "build": "ng build --base-href .",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "ic" : "start-server-and-test 'node dist/qcm-app/server/server.mjs' 4000 'npx cypress run --spec ./cypress/e2e/myTest.spec.cy.js --reporter json --reporter-options output=test-report.json'" ,
+    "ic" : "start-server-and-test 'http-server --port 3000 --proxy https://www.d-defrance.fr -c-1 dist/qcm-app/browser' 3000 'npx cypress run --spec ./cypress/e2e/myTest.spec.cy.js --reporter json --reporter-options output=test-report.json'" ,
     "serve:ssr:qcm-app": "node dist/qcm-app/server/server.mjs"
   },
   "private": true,
