@@ -12,7 +12,7 @@ export class QcmResultsService extends GenericRestCrudService<QcmResults> {
   }
 
   public override settingEntitiesNameAndApiBaseUrl(): void {
-    this.apiBaseUrl = "/qcm-api";
+    this.apiBaseUrl = "/qcm-api/v1";
     this.entitiesName = "qcm_results";
     console.log("apiBaseUrl="+this.apiBaseUrl);
     console.log("entitiesName="+this.entitiesName);

@@ -21,7 +21,7 @@ export class QcmService extends GenericRestCrudService<Qcm> {
   }
 
   public override settingEntitiesNameAndApiBaseUrl(): void {
-    this.apiBaseUrl = "/qcm-api";
+    this.apiBaseUrl = "/qcm-api/v1";
     this.entitiesName = "qcm";
     console.log("apiBaseUrl="+this.apiBaseUrl);
     console.log("entitiesName="+this.entitiesName);
@@ -39,7 +39,7 @@ export class QcmService extends GenericRestCrudService<Qcm> {
   }
 
   public postQcmChoices(qcmId:string,choices: ResponseChoices[],qcmPerformer:QcmPerformer,mode:string|null=null):Observable<PostChoicesResponse>{
-    let url : string = "/qcm-api/public/qcm_choices";
+    let url : string = "/qcm-api/v1/public/qcm_choices";
     let postChoicesRequest = new  PostChoicesRequest();
     postChoicesRequest.qcmId=qcmId;
     postChoicesRequest.mode=mode||"training";
@@ -51,7 +51,7 @@ export class QcmService extends GenericRestCrudService<Qcm> {
 
   public getQcmWithSolutionsById$(qcmId:string):Observable<Qcm>{
     //Nb: /public/qcm without solutions , /private/qcm with solutions
-    let url : string = `/qcm-api/private/qcm/${qcmId}`;
+    let url : string = `/qcm-api/v1/private/qcm/${qcmId}`;
     return this.http.get<Qcm>(url );
   }
 
