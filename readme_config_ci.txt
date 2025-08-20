@@ -9,4 +9,4 @@ ng build (ok for ssr)
 ng build --ssr=false --prerender=false (no ssr , generate browser/index.html)
 ng build --ssr=true --prerender=false (ok ssr , generate browser/index.csr.html instead of index.html)
 http-server --port 3000 --proxy https://www.d-defrance.fr -c-1 dist/qcm-app/browser 
-et http://localhost:3000/index.csr.html
+et avec http://localhost:3000/index.csr.html comme point d'entrée dans test cypress e2e

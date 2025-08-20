@@ -1,4 +1,4 @@
-describe('My HTML/JS Tests', () => {
+describe('Main HTML/JS Tests', () => {
 
 
   it('qcm-app index ok (smoke test)', () => {

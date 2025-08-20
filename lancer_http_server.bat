@@ -1,0 +1,1 @@
+http-server --port 3000 --proxy https://www.d-defrance.fr -c-1 dist/qcm-app/browser

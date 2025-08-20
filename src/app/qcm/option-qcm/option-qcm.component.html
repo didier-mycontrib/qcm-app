@@ -32,7 +32,7 @@
           </form>
 </my-toggle-panel>
 
-<my-toggle-panel title="2. sélection et action"
+<my-toggle-panel title="2. sélection et action" id="selQcmAndActionPanel"
 [(panelOpenState)]="selectionOpenState"
 (panelOpenStateChange)="onExclusiveOpenState(selectionOpenState)">
    <form role="form" #formFiltrage="ngForm"
@@ -45,7 +45,7 @@
 
      <div class="form-group row">
           <div class="offset-sm-3 col-sm-9">
-          <input  type="submit" class="btn my-bg-primary text-white" 
+          <input  type="submit" class="btn my-bg-primary text-white" id="actualiserListeButton"
                     value="a. actualiser la liste" 
                     (click)="onListeQcmAvecFiltrage()" /> &nbsp;&nbsp; <span>{{msgFiltrage}}</span>
           </div>
@@ -53,7 +53,7 @@
     </form>
      <hr/>
      b. sélectionner un qcm (click):
-     <ul>
+     <ul id="ulQcmlist">
           <li *ngFor="let q of listeQcm">
                <span (click)="onSelectQcm(q)" [class.selected]="q==selectedQcm"> {{q.title}}  </span> 
           </li>     
