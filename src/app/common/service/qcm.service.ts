@@ -22,7 +22,7 @@ export class QcmService extends GenericRestCrudService<Qcm> {
 
   public override settingEntitiesNameAndApiBaseUrl(): void {
     this.apiBaseUrl = "/qcm-api/v1";
-    this.entitiesName = "qcm";
+    this.entitiesName = "qcms";
     console.log("apiBaseUrl="+this.apiBaseUrl);
     console.log("entitiesName="+this.entitiesName);
   }
@@ -51,7 +51,7 @@ export class QcmService extends GenericRestCrudService<Qcm> {
 
   public getQcmWithSolutionsById$(qcmId:string):Observable<Qcm>{
     //Nb: /public/qcm without solutions , /private/qcm with solutions
-    let url : string = `/qcm-api/v1/private/qcm/${qcmId}`;
+    let url : string = `/qcm-api/v1/private/qcms/${qcmId}`;
     return this.http.get<Qcm>(url );
   }
 
