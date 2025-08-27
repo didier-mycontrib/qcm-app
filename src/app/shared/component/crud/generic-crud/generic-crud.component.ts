@@ -72,7 +72,7 @@ export class GenericCrudComponent implements OnInit {
       { next: (tabObjects)=>{ this.collectionMessage = this.genericCrudContext()?.entityTypeName + " loaded";
                               if(this.genericCrudContext())
                                  this.genericCrudContext()!.tabObjects = tabObjects;  } ,
-       error: (err)=>{ this.collectionMessage = messageFromError(err,"erreur: echec chargement liste Devises"); }
+       error: (err)=>{ this.collectionMessage = messageFromError(err,"erreur: echec chargement liste (unauthorized?)"); }
     });
     this.objectTemp=this.genericCrudContext()?.contextHelper.objectHelper().buildEmptyObject();
   }
