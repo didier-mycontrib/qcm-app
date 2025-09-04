@@ -81,6 +81,7 @@ export class OAuth2SessionService {
     this.oauthService.setStorage(sessionStorage);
     
     this.oauthService.loadDiscoveryDocumentAndTryLogin();
+    this.oauthService.setupAutomaticSilentRefresh();
     this.oauthService.events.subscribe(
       event => {
         if (event instanceof OAuthSuccessEvent) {

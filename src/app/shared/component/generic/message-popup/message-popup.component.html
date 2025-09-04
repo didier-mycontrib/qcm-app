@@ -1,0 +1,20 @@
+<div class="my-dialog-container">
+  <mat-dialog-content>
+    <p [style.color]="colorFromType()"><b>
+      @if(data.type=="info"){
+         <mat-icon inline=true>info</mat-icon>
+      }
+       @if(data.type=="warning"){
+         <mat-icon inline=true>warning</mat-icon>
+      }
+       @if(data.type=="error"){
+         <mat-icon inline=true>cancel</mat-icon>
+      }
+      &nbsp; {{data.titre}}</b></p>
+    <hr/>
+    <div [innerHTML]="data.texte"></div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="onClose()">(x) Close</button> &nbsp;
+  </mat-dialog-actions>
+</div>

@@ -3,6 +3,10 @@ import { GenericCrudAbstractContextHelper } from './abstract/GenericCrudAbstract
 import { GenericCrudService } from '../../service/generic-crud-service';
 import { FilterDef } from '../../data/filter-def';
 
+interface PrepareFormaDataFn{
+    ():FormData
+}
+
 export class GenericCrudContext<T,I>{
 
     public requiredRole:string|null=null; //if not null and ("admin" or ...) private URL for "get"
@@ -13,6 +17,14 @@ export class GenericCrudContext<T,I>{
     constructor(public contextHelper : GenericCrudAbstractContextHelper<T,I> ){
         this.entityTypeName = contextHelper.objectHelper().getEntityTypeName();
     } 
+
+    public onUploadFormDataPrepareFn : PrepareFormaDataFn | null =null ; //reference sur fonction facultative
+    //utile seulement en mode upload et permettant de contruire l'objet technique FormData à uploader
+    //juste avant de déclencher genericCrudService.uploadFormData$(formData); 
+
+    //ALTERNATIVE IMPLEMENTATION: 
+    // public onGenericCrudStateChangeHookFn : any =null ;//reference sur fonction facultative de type hook
+    //qui pourrait évnetuellement etre appelée à la place de l'envoi de l'évènement genericCrudStateChange
 
     //filters list to define (when configuring GenericCrudContext)
     public filterDefs : FilterDef[] = [];

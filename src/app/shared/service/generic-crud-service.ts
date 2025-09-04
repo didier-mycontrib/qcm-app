@@ -8,3 +8,7 @@ export interface GenericCrudService<T>{
     findObjectsFromCriteria$(criteriaEndUrl:string,requiredRole:string|null):Observable<T[]>
     deleteEntityObjectServerSide$(id:any):Observable<any>
 }
+
+export interface GenericWithUploadService{
+    uploadFormData$(formData : FormData):Observable<any> 
+}

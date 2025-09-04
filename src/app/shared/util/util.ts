@@ -9,7 +9,8 @@ export function messageFromError(err : HttpErrorResponse ,
       console.log("Client-side error occured." + JSON.stringify(err));
       message = myMsg;
       } else {
-      console.log("Server-side error occured : " + JSON.stringify(err));
+      //console.log("Server-side error occured : " + JSON.stringify(err));
+      console.log("Server-side error occured : " + err);
       let detailErrMsg = (err.error && err.error.message)?":"+err.error.message:"";
       if(err.status == 200){
           message = myMsg + "(technical problem)"
@@ -72,6 +73,18 @@ export function setCookie(name: string, value: string,
     let cpath:string = path ? `; path=${path}` : '';
     let cdomain:string = path ? `; domain=${domain}` : '';
     document.cookie = `${name}=${value}${cexpires}${cpath}${cdomain}`;
+}
+
+export function fileNameWithDateTimeSuffix(ficName:string):string{
+    let posPoint = ficName.lastIndexOf('.');
+    let ficNameSansExt = ficName.substring(0,posPoint);
+    let ficExt = ficName.substring(posPoint+1);
+
+    //IMPORTANT : un suffix d'horodatage est ajouté au nom du fichier qui sera enregistré coté serveur
+    //pour garantir une unicité de la ressource (pas d'écrasement d'ancien fichier de même nom)
+    let suffix = (new Date()).getTime();
+    //NB: replace(/\s/g, '') pour remplacer tous les éventuels caractères espaces gênants par des '_'
+    return ficNameSansExt.replace(/\s/g, '_') +"_"+suffix+"."+ficExt;
 }
 
 

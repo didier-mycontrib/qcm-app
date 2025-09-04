@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from "rxjs";
-import { GenericCrudService } from './generic-crud-service';
+import { GenericCrudService, GenericWithUploadService } from './generic-crud-service';
 import { inject } from '@angular/core';
 
 export abstract class GenericRestCrudService<T> implements GenericCrudService<T> {
@@ -78,7 +78,7 @@ export abstract class GenericRestCrudService<T> implements GenericCrudService<T>
 
 
 export abstract class GenericRestCrudServiceWithUpload<T>
-   extends GenericRestCrudService<T> {
+   extends GenericRestCrudService<T> implements GenericWithUploadService{
 
     protected uploadBaseUrl = "" ; //must be set by subclass
 
