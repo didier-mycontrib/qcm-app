@@ -1,5 +1,5 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { Component, HostListener, input, Input, InputSignal, model, ModelSignal, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, HostListener, input, Input, InputSignal, model, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
 import { MenuDef } from '../../data/menu-def';
 import { StickyHeaderComponent } from './sticky-header/sticky-header.component';
@@ -37,8 +37,7 @@ export class D2fNgxLayoutComponent implements OnInit {
     new MenuDef("login-out","/ngr-login-out")
   ];
 
-  mainMenuDefs :InputSignal<MenuDef[]> = input(this._defaultMainMenuDefs,
-    {transform: (menuDefArray)=> <MenuDef[]><any> menuDefArray });
+  mainMenuDefs = input<MenuDef[]>(this._defaultMainMenuDefs);
 
   
   private _defaultQuickMenuDefs : MenuDef[] =[
@@ -46,8 +45,7 @@ export class D2fNgxLayoutComponent implements OnInit {
     new MenuDef("login-out","/ngr-login-out")
   ];
 
-  quickMenuDefs :InputSignal<MenuDef[]> = input(this._defaultQuickMenuDefs,
-        {transform: (menuDefArray)=> <MenuDef[]><any> menuDefArray });
+  quickMenuDefs = input<MenuDef[]>(this._defaultQuickMenuDefs);
   
 
   @ViewChild('matSideNav', { static: true })
@@ -56,7 +54,7 @@ export class D2fNgxLayoutComponent implements OnInit {
   constructor(private _breakpointObserver: BreakpointObserver) { }
 
   //public innerWidth: any; //v1 (without BreakpointObserver)
-  openedSideNav : ModelSignal<boolean> = model(false);
+  openedSideNav = model<boolean>(false);
   defaultOpenedSideNav : InputSignal<boolean> = input(true);
 
   sideNavMode : MatDrawerMode = "side";  
@@ -88,7 +86,7 @@ export class D2fNgxLayoutComponent implements OnInit {
     this.sideNavMode="side";
     if (this.isSmall==true ) {
       this.openedSideNav.set(false);
-    } else {
+    }else {
       console.log("defaultOpenedSideNav="+this.defaultOpenedSideNav());
       this.openedSideNav.set(this.defaultOpenedSideNav());
     } 
@@ -114,7 +112,7 @@ export class D2fNgxLayoutComponent implements OnInit {
   onTogglerMenu(){
     //need to display menu if necessary (small width)
     //console.log("onTogglerMenu()")
-    this.openedSideNav.set(!this.openedSideNav());
+   this.openedSideNav.set(!this.openedSideNav());
   }
 
   /*

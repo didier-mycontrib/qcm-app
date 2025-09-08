@@ -16,8 +16,7 @@ export class MainSideNavComponent  {
     new MenuDef("yyy","/ngr-yyy")
   ];
 
- menuDefs :InputSignal<MenuDef[]> = input(this._defaultMenuDefs,
-               {transform: (menuDefArray)=> <MenuDef[]><any> menuDefArray });
+ menuDefs = input<MenuDef[]>(this._defaultMenuDefs);
   
 
   selectedMenuDef : MenuDef | null = null;

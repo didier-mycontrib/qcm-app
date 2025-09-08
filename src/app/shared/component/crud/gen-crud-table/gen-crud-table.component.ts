@@ -25,21 +25,18 @@ export class GenCrudTableComponent {
   title="";
   titleWithSize="";
   
-  objectHelperRef :InputSignal<ObjectHelper<any,any> | null> = input(null,{transform: (objectHelper)=> <any> objectHelper });
+  objectHelperRef  = input<ObjectHelper<any,any> | null>(null);
 
   public messageRef :ModelSignal<string> = model("");
 
   //liste des objets à afficher
-  tabObjectsRef  :InputSignal<object[] | null> 
-    = input(null,{transform: (tabObjects)=> <any> tabObjects });
+  tabObjectsRef  = input<object[] | null> (null);
 
   //objet sélectionné (null au début):
   public selectedObjectRef :ModelSignal<any> = model(null);
 
   //liste des parties de l'objet à afficher (dans colonnes):
-  essentialKeysArrayRef
-   :InputSignal<string[] | null>  
-      =input(null,{transform: (tabKey)=> <any> tabKey});
+  essentialKeysArrayRef =input<string[] | null>(null);
 
   tablePanelOpenState=true;
 
@@ -50,7 +47,7 @@ export class GenCrudTableComponent {
     //idKey en italic et sortBy key souligné:
     return {
       "text-decoration" :(this.sortBy == keyField)?"underline":"none" ,
-      "font-style" : (this.objectHelperRef()!.getIdKeyName() == keyField)?"italic":"normal",
+      "font-style" : (this.objectHelperRef()!.classHelper.idKeyName == keyField)?"italic":"normal",
     };
   }
 
@@ -113,16 +110,12 @@ export class GenCrudTableComponent {
   */
 
   ngOnInit(){
-    this.title = "list of " + this.objectHelperRef()?.getEntityTypeName();
+    this.title = "list of " + this.objectHelperRef()?.classHelper.entityName;
+    //console.log("GenCrudTableComponent.ngOnInit(),this.essentialKeysArrayRef()="+this.essentialKeysArrayRef())
   }
 
   objectEssentialValuesArray(obj:object):any[]{
-    let arrayOfPropKeys = this.essentialKeysArrayRef()??[];
-    let valuesArray = [];
-    for(let key of arrayOfPropKeys){
-     valuesArray.push(Reflect.get(obj,key));
-    }
-    return valuesArray;
+    return this.objectHelperRef()?.objectEssentialValuesArray(obj)??[];
    }
 
    public onSelectObject(obj:any){

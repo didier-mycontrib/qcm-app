@@ -1,22 +1,27 @@
 import { filter, Observable, of, switchMap, tap, throwError, toArray } from 'rxjs';
-import { GenericCrudAbstractContextHelper } from './abstract/GenericCrudAbstractContextHelper';
 import { GenericCrudService } from '../../service/generic-crud-service';
 import { FilterDef } from '../../data/filter-def';
+import { ObjectHelper } from '../../helper/object-helper';
+import { GenericCrudHelper } from './abstract/GenericCrudHelper';
 
 interface PrepareFormaDataFn{
     ():FormData
 }
 
-export class GenericCrudContext<T,I>{
+export class GenericCrudContext<T,I> implements GenericCrudHelper<T,I>{
 
     public requiredRole:string|null=null; //if not null and ("admin" or ...) private URL for "get"
     public availableActions="READ,NEW,ADD,UPDATE,DELETE"; //or just "READ,DELETE" or "DELETE,UPDATE" or "...,...,..."
 
-    public entityTypeName : string="UnknownEntityName"; //ex: "Devise" ou "Contact" ou ...
+    //entityTypeName now in objectHelper.classHelper.entityTypeName
     
-    constructor(public contextHelper : GenericCrudAbstractContextHelper<T,I> ){
-        this.entityTypeName = contextHelper.objectHelper().getEntityTypeName();
+    constructor(public objectHelper : ObjectHelper<T,I> ,
+                public genericCrudService : GenericCrudService<T> | null){
+        //...
     } 
+
+    //NB: if this class ,  GenericCrudHelper<T,I> methods will be delegated to genericCrudService
+    // in GenericCrudContextWithSpecificHelper sub class,  GenericCrudHelper<T,I> methods will be delegated to a specific crudHelper object
 
     public onUploadFormDataPrepareFn : PrepareFormaDataFn | null =null ; //reference sur fonction facultative
     //utile seulement en mode upload et permettant de contruire l'objet technique FormData à uploader
@@ -31,24 +36,16 @@ export class GenericCrudContext<T,I>{
 
     public tabObjects : T[]=[];
 
-    public onGetAllObjects$(genericCrudService : GenericCrudService<T> | null) : Observable<T[]>{
-        let crudHelper = this.contextHelper.crudHelper();
-        if(crudHelper!=null)
-            return crudHelper.onGetAllObjects$();
-        else if(genericCrudService)
-           return   genericCrudService.getAllObjects$(this.requiredRole);
-           //<Observable<T[]>> <any> = temporal workaround for unknown angular library version mismatch (rxjs from d2f-ngx-commons) when npm link (no problem with npm i -s d2f-ngx-commons)
-        else return throwError(()=>{err:"onGetAllObjects$ not implemented (no genericCrudService and no crudHelper)"});
+    public onGetAllObjects$() : Observable<T[]>{
+      if(this.genericCrudService)
+           return this.genericCrudService.getAllObjects$(this.requiredRole);
+        else return throwError(()=>{err:"onGetAllObjects$ not implemented (no genericCrudService in GenericCrudContext or no crudHelper in GenericCrudContextWithSpecificHelper)"});
     }
 
-    public onFindObjectsByCriteria$(criteria : string , genericCrudService : GenericCrudService<T> | null) : Observable<T[]>{
-        let crudHelper = this.contextHelper.crudHelper();
-        if(crudHelper!=null)
-            return crudHelper.onFindObjectsByCriteria$(criteria);
-        else if(genericCrudService)
-           return   genericCrudService.findObjectsFromCriteria$(criteria,this.requiredRole);
-           //<Observable<T[]>> <any> = temporal workaround for unknown angular library version mismatch (rxjs from d2f-ngx-commons) when npm link (no problem with npm i -s d2f-ngx-commons)
-        else return throwError(()=>{err:"onFindObjectsByCriteria$ not implemented (no genericCrudService and no crudHelper)"});
+    public onFindObjectsByCriteria$(criteria : string ) : Observable<T[]>{
+        if(this.genericCrudService)
+           return   this.genericCrudService.findObjectsFromCriteria$(criteria,this.requiredRole);
+        else return throwError(()=>{err:"onFindObjectsByCriteria$ not implemented (no genericCrudService in GenericCrudContext or no crudHelper in GenericCrudContextWithSpecificHelper)"});
     }
 
     public applyClientSideFilter( obs: Observable<T[]> , filteringFn:any):Observable<T[]>{
@@ -59,7 +56,7 @@ export class GenericCrudContext<T,I>{
         );
     }
 
-    public onFindObjectsWithFilterDefs$(genericCrudService : GenericCrudService<T> | null) : Observable<T[]>{
+    public onFindObjectsWithFilterDefs$() : Observable<T[]>{
         let allServerSideFilters = "";
         let clientSideFilters = [];
         for(let fd of this.filterDefs){
@@ -75,7 +72,7 @@ export class GenericCrudContext<T,I>{
         }
         
         let serverSideResults : Observable<T[]>= 
-           this.onFindObjectsByCriteria$(allServerSideFilters,genericCrudService);
+           this.onFindObjectsByCriteria$(allServerSideFilters);
 
         
         let clientSideResults =serverSideResults;
@@ -90,32 +87,24 @@ export class GenericCrudContext<T,I>{
         return clientSideResults;
     }
 
-    public onAddObject$(obj:T , genericCrudService : GenericCrudService<T> | null) : Observable<T>{
-        let crudHelper = this.contextHelper.crudHelper();
-        if(crudHelper!=null)
-            return crudHelper.onAddObject$(obj);
-        else if(genericCrudService)
-           return   genericCrudService.postEntityObject$(obj);
-        else return throwError(()=>{err:"onAddObject$ not implemented (no genericCrudService and no crudHelper)"});
+    public onAddObject$(obj:T ) : Observable<T>{
+        if(this.genericCrudService)
+           return   this.genericCrudService.postEntityObject$(obj);
+        else return throwError(()=>{err:"onAddObject$ not implemented (no genericCrudService in GenericCrudContext or no crudHelper in GenericCrudContextWithSpecificHelper)"});
     }
 
-    public onUpdateObject$(obj:T , genericCrudService : GenericCrudService<T> | null) : Observable<T>{
-        let crudHelper = this.contextHelper.crudHelper();
-        let id = this.contextHelper.objectHelper().getId(obj);
-        if(crudHelper!=null)
-            return crudHelper.onUpdateObject$(obj);
-        else if(genericCrudService)
-           return   genericCrudService.putEntityObject$(id,obj);
-        else return throwError(()=>{err:"onUpdateObject$ not implemented (no genericCrudService and no crudHelper)"});
+    public onUpdateObject$(obj:T) : Observable<T>{
+        let id = this.objectHelper.getId(obj);
+        if(this.genericCrudService)
+           return   this.genericCrudService.putEntityObject$(id,obj);
+        else return throwError(()=>{err:"onUpdateObject$ not implemented (no genericCrudService in GenericCrudContext or no crudHelper in GenericCrudContextWithSpecificHelper)"});
     }
 
-    public onDeleteObject$(id: I , genericCrudService : GenericCrudService<T> | null) : Observable<any>{
-        let crudHelper = this.contextHelper.crudHelper();
-        if(crudHelper!=null)
-            return crudHelper.onDeleteObject$(id);
-        else if(genericCrudService)
-           return  genericCrudService.deleteEntityObjectServerSide$(id);
-        else return throwError(()=>{err:"onDeleteObject$ not implemented (no genericCrudService and no crudHelper)"});
+    public onDeleteObject$(id: I ) : Observable<any>{
+       if(this.genericCrudService)
+           return  this.genericCrudService.deleteEntityObjectServerSide$(id);
+        else 
+           return throwError(()=>{err:"onDeleteObject$ not implemented (no genericCrudService in GenericCrudContext or no crudHelper in GenericCrudContextWithSpecificHelper)"});
     }
 
    

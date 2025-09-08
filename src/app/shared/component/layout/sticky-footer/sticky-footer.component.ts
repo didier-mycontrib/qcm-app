@@ -20,7 +20,7 @@ export class StickyFooterComponent  {
 
   public expandLegalFooterInSmallSize = false;
 
-  quickMenuDefs :InputSignal<MenuDef[]> = input([],{transform: (menuDefArray)=> <MenuDef[]><any> menuDefArray });
+  quickMenuDefs  = input<MenuDef[]>([]);
 
   //may be null/undefined:
   public legalFooterTemplateRef = input<TemplateRef<any>>();

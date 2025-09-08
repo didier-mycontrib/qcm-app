@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { MyTogglePanelComponent } from './shared/component/generic/my-toggle-panel/my-toggle-panel.component';
 import { D2fNgxLayoutComponent } from './shared/component/layout/d2f-ngx-layout.component';
 import { MenuDef } from './shared/data/menu-def';
 

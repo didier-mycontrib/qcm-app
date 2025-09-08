@@ -52,6 +52,19 @@ export function messageFromError(err : HttpErrorResponse ,
     }
    }
 
+  export function  objectKeysArray(obj:object):any[]{
+    return Reflect.ownKeys(obj);
+  }
+
+  export function objectValuesArray(obj:object):any[]{
+        let arrayOfPropKeys = Reflect.ownKeys(obj);
+        let valuesArray = [];
+        for(let key of arrayOfPropKeys){
+            valuesArray.push(Reflect.get(obj,key));
+        }
+        return valuesArray;
+     }
+
 export function deleteCookie(name:string ) {
    setCookie(name, '', -1);
 }

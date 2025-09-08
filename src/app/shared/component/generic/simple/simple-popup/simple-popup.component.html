@@ -1,0 +1,20 @@
+<div class="popup-overlay" > <!-- (click)="closePopup(false)" if non modal -->
+  <div class="popup-content" (click)="$event.stopPropagation()">
+	<h3>{{title()}}</h3>
+  <ng-container  [ngTemplateOutlet]="dialogTemplateRef()??null"></ng-container>
+  <hr/>
+	<button (click)="closePopup(true)" class="ok">ok</button> &nbsp; 
+  <button (click)="closePopup(false)" class="cancel">cancel</button>
+  </div>
+</div>
+
+<!-- 
+* popup-overlay (with transparency background 'ex: rgba(0, 0, 0, 0.5) '
+    and fixed position) that covers all screen
+     - in "ordinary popup" mode:  when clicking on , it will close the popup
+     - in "modal" mode:  when clicking on , it will fire nothing (still bocking)
+* popup-content : whole content with title, message, buttons, ...
+NB: closePopup() will be called when click on overlay or button
+    inside popup-content , (click)="$event.stopPropagation() so that 
+    clicks inside the popup don’t accidentally close it
+-->

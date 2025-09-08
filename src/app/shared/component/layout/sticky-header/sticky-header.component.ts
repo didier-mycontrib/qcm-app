@@ -19,7 +19,7 @@ export class StickyHeaderComponent  {
 
   title = input("my-angular-app");
 
-  quickMenuDefs :InputSignal<MenuDef[]> = input([],{transform: (menuDefArray)=> <MenuDef[]><any> menuDefArray });
+  quickMenuDefs = input<MenuDef[]>([]);
   
   showStatusBar = true;
 

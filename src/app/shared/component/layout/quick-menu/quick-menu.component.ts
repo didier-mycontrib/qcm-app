@@ -16,8 +16,7 @@ export class QuickMenuComponent  {
     new MenuDef("login/out","/ngr-login-out")
   ];
 
- quickMenuDefs :InputSignal<MenuDef[]> = input(this._defaultQuickMenuDefs,
-               {transform: (menuDefArray)=> <MenuDef[]><any> menuDefArray });
+ quickMenuDefs = input<MenuDef[]>(this._defaultQuickMenuDefs);
   
 
   constructor(private _router : Router) { }
