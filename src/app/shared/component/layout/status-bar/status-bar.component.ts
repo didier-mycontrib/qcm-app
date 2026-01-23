@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, computed, effect, inject, OnInit } from '@angular/core';
 import {  UserSessionService } from "../../../service/user-session.service";
 import { UserSession , UserSessionEx } from "../../../data/user-session";
 
@@ -11,11 +11,16 @@ export class StatusBarComponent  {
 
   private _userSessionService = inject(UserSessionService);
 
+  /*
   public userSessionEx : UserSessionEx = new UserSessionEx(undefined);
 
   private userSessionEffect = effect(()=>{
       this.userSessionEx= new UserSessionEx(this._userSessionService.sUserSession());
   });
+  */
+
+  public sUserSessionEx = computed(()=>new UserSessionEx(this._userSessionService.sUserSession()));
+
 
     /*
   constructor(){

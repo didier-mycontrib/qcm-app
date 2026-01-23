@@ -156,21 +156,10 @@ export class OAuth2SessionService {
        this.oauthService.logOut(false); //clear tokens in storage ( and redirect to logOutEndpoint if not true)
        //this.oauthService.revokeTokenAndLogout(); //warning : problems if no CORS settings !!!!
 
-       //delete old cookies (oauth2/oidc/keycloak):
-       //NB: it's not useful on current url/domain , but useful on authServer_url/domain
-       /*
-       document.cookie = "AUTH_SESSION_ID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-       document.cookie = "AUTH_SESSION_ID_LEGACY=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-       */
-      /*
-      // REJECT BY BROWSER because OTHER domain !!!!
-      deleteCookieWithPathDomain("AUTH_SESSION_ID","/keycloak/realms/sandboxrealm/","www.d-defrance.fr");
-      deleteCookieWithPathDomain("AUTH_SESSION_ID_LEGACY","/keycloak/realms/sandboxrealm/","www.d-defrance.fr");
-      deleteCookieWithPathDomain("KEYCLOAK_IDENTITY_LEGACY","/keycloak/realms/sandboxrealm/","www.d-defrance.fr");
-      deleteCookieWithPathDomain("KEYCLOAK_IDENTITY","/keycloak/realms/sandboxrealm/","www.d-defrance.fr");
-      deleteCookieWithPathDomain("KEYCLOAK_SESSION_LEGACY","/keycloak/realms/sandboxrealm/","www.d-defrance.fr");
-      deleteCookieWithPathDomain("KEYCLOAK_SESSION","/keycloak/realms/sandboxrealm/","www.d-defrance.fr");
-      */
+      
+       //NB: ne pas essayer de supprimer certains cookies de session de keycloak par code js/client
+       //car cookies en mode httpOnly seulement modifiables par le serveur !!!
+     
      
   }
 

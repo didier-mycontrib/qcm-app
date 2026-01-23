@@ -1,4 +1,4 @@
-import { Component,  inject,  input, InputSignal, OnInit, output, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component,  inject,  input, InputSignal, OnInit, output, signal, TemplateRef } from '@angular/core';
 import { GenericCrudContext } from '../GenericCrudContext';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -28,6 +28,8 @@ export interface GenericCrudState{
 })
 export class GenericCrudComponent implements OnInit {
 
+   private changeDetectorRef = inject(ChangeDetectorRef);
+
   public genericCrudContext  = input<GenericCrudContext<any,any> | null>(null);
 
   //genericCrudService now in genericCrudContext
@@ -48,12 +50,15 @@ export class GenericCrudComponent implements OnInit {
   //this.genericCrudContext?.tabObjects of type T[]
 
   selectedObject : any ;
+ 
 
   //[(ngModel)]="deviseTemp.code" , ....
   objectTemp : any = null;
   
-  collectionMessage /*: string*/ ="";
-  formMessage/*: string*/ ="";
+  //collectionMessage /*: string*/ ="";
+  //formMessage/*: string*/ ="";
+  collectionMessage /*: string*/ =signal("");
+  formMessage/*: string*/ =signal("");
   
   mode  = "newOne"; //or "exitingOne"
 
@@ -70,10 +75,11 @@ export class GenericCrudComponent implements OnInit {
   onReload(){
     this.genericCrudContext()!.onFindObjectsWithFilterDefs$()
     .subscribe(
-      { next: (tabObjects)=>{ this.collectionMessage = this.classHelper().entityName + " reloaded";
+      { next: (tabObjects)=>{ this.collectionMessage.set(this.classHelper().entityName + " reloaded");
                               if(this.genericCrudContext())
-                                 this.genericCrudContext()!.tabObjects = tabObjects;  } ,
-       error: (err)=>{ this.collectionMessage = messageFromError(err,"erreur: echec rechargement liste via filtre"); }
+                                 this.genericCrudContext()!.tabObjects = tabObjects; 
+                              this.changeDetectorRef.markForCheck(); } ,
+       error: (err)=>{ this.collectionMessage.set(messageFromError(err,"erreur: echec rechargement liste via filtre")); }
     });
     this.objectTemp=this.objectHelper().buildEmptyObject();
   }
@@ -85,10 +91,11 @@ export class GenericCrudComponent implements OnInit {
     .subscribe(
       { next: (tabObjects)=>{ //console.log("GenericCrudComponent.ngOnInit , tabObjects="+JSON.stringify(tabObjects))
                               //console.log("GenericCrudComponent.ngOnInit , classHelper()="+JSON.stringify(this.classHelper()))
-                              this.collectionMessage = this.classHelper().entityName + " loaded";
+                              this.collectionMessage.set(this.classHelper().entityName + " loaded");
                               if(this.genericCrudContext())
-                                 this.genericCrudContext()!.tabObjects = tabObjects;  } ,
-       error: (err)=>{ this.collectionMessage = messageFromError(err,"erreur: echec chargement liste (unauthorized?)"); }
+                                 this.genericCrudContext()!.tabObjects = tabObjects; 
+                              this.changeDetectorRef.markForCheck(); } ,
+       error: (err)=>{ this.collectionMessage.set(messageFromError(err,"erreur: echec chargement liste (unauthorized?)")); }
     });
     this.objectTemp=this.objectHelper().buildEmptyObject();
     this.fireGenericCrudStateChangeEvent("onInit");
@@ -112,7 +119,7 @@ export class GenericCrudComponent implements OnInit {
 
   onNew(){
     this.selectedObject=undefined; this.mode='newOne';
-    this.formMessage="new one (to edit before add)"
+    this.formMessage.set("new one (to edit before add)");
     this.objectTemp = this.objectHelper().buildEmptyObject();
     this.fireGenericCrudStateChangeEvent("onNew");
   }
@@ -137,11 +144,13 @@ export class GenericCrudComponent implements OnInit {
     }
     if(postResponseObservable)
       postResponseObservable.subscribe(
-      { next: (savedObject)=>{ this.formMessage = this.classHelper().entityName + " added"
+      { next: (savedObject)=>{ this.formMessage.set(this.classHelper().entityName + " added");
                                 + " with " + this.objectHelper().extractKeyValueString(savedObject);
-                                this.collectionMessage = this.formMessage;
-                                this.addClientSide(savedObject); } ,
-        error: (err)=>{ this.formMessage = messageFromError(err,"error: echec post",true,true); }
+                                this.collectionMessage.set(this.formMessage());
+                                this.addClientSide(savedObject); 
+                                this.changeDetectorRef.markForCheck();
+                              } ,
+        error: (err)=>{ this.formMessage.set(messageFromError(err,"error: echec post",true,true)); }
     });
   }
 
@@ -165,10 +174,12 @@ export class GenericCrudComponent implements OnInit {
          let id = this.objectHelper().getId(this.selectedObject);
          this.genericCrudContext()?.onDeleteObject$(id)
              .subscribe(
-              { next: ()=>{ this.collectionMessage = this.classHelper().entityName + " deleted";
+              { next: ()=>{ this.collectionMessage.set(this.classHelper().entityName + " deleted");
                             console.log("GenericCrudComponent.onDelete() collectionMessage="+this.collectionMessage);
-                            this.deleteClientSide(); } ,
-               error: (err)=>{ this.formMessage = messageFromError(err,"error: echec suppression",true,true); }
+                            this.deleteClientSide(); 
+                            this.changeDetectorRef.markForCheck();//to refresh GUI without signal in ZoneLess mode (defaut mode since angular 21)
+                          } ,
+               error: (err)=>{ this.formMessage.set(messageFromError(err,"error: echec suppression",true,true)); }
             });
     }
   }
@@ -187,10 +198,10 @@ export class GenericCrudComponent implements OnInit {
   onUpdate(){
     this.genericCrudContext()?.onUpdateObject$(this.objectTemp)
     .subscribe(
-     { next: (updatedObject)=>{  this.formMessage = this.classHelper().entityName + " updated";
-                   this.collectionMessage = this.formMessage;
+     { next: (updatedObject)=>{  this.formMessage.set(this.classHelper().entityName + " updated");
+                   this.collectionMessage.set(this.formMessage());
                    this.updateClientSide(updatedObject); } ,
-      error: (err)=>{ this.formMessage = messageFromError(err,"error: echec update",true,true);}
+      error: (err)=>{ this.formMessage.set(messageFromError(err,"error: echec update",true,true));}
    });
   }
 
@@ -215,8 +226,8 @@ export class GenericCrudComponent implements OnInit {
       //indépendante de this.selectedObject (et pas une référence sur l'objet original)
       this.objectTemp = cloneObject(this.selectedObject);
       let id = this.objectHelper().getId(this.selectedObject);
-      this.collectionMessage =  id + " selected";
-      this.formMessage =  "current "+ this.classHelper().entityName + "=" + id;
+      this.collectionMessage.set(id + " selected");
+      this.formMessage.set("current "+ this.classHelper().entityName + "=" + id);
       this.fireGenericCrudStateChangeEvent("onSelected");
   }
 

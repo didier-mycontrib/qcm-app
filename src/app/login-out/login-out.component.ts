@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { UserSessionService } from '../shared/service/user-session.service';
 import { UserSessionEx, UserSession } from '../shared/data/user-session';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +19,7 @@ export class LoginOutComponent  {
   private _myStorageUtilService = inject(MyStorageUtilService);
   public isOk = false;
   public message="";
-
+  public sAuthenticated = computed(()=> this.userSessionService.sUserSession().authenticated);
   public loginMode: "standalone-login-api" | "oauth2" ="oauth2" ;
 
   public oauth2SessionService = inject(OAuth2SessionService);

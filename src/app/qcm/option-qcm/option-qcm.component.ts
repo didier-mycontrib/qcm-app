@@ -1,6 +1,6 @@
 import { Component, effect, OnInit, Signal, signal, ViewChild, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter , flatMap , toArray} from 'rxjs/operators';
+import { filter , flatMap , mergeMap, toArray} from 'rxjs/operators';
 import { Qcm } from '../../common/data/qcm';
 import { QcmService } from '../../common/service/qcm.service';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -11,7 +11,7 @@ import { MyTogglePanelComponent } from '../../shared/component/generic/my-toggle
 
 @Component({
   selector: 'app-option-qcm',
-  imports: [FormsModule,NgFor,NgIf,MyCardComponent,MyFormGroupWithLabelComponent,MyTogglePanelComponent],
+  imports: [FormsModule,MyCardComponent,MyFormGroupWithLabelComponent,MyTogglePanelComponent],
   templateUrl: './option-qcm.component.html',
   styleUrls: ['./option-qcm.component.scss']
 })
@@ -47,22 +47,22 @@ export class OptionQcmComponent implements OnInit {
   public filtre : string ="";
   public msgFiltrage = "";
 
-  public listeQcm :Qcm[] = [];
+  public listeQcm=signal<Qcm[]>([]);
   public selectedQcm :Qcm | null = null;
 
   public onListeQcmAvecFiltrage():void {
       //pré-version pas encore optimisée:
       this.qcmService.findQcmFromCriteria(this.mode)
       .pipe(
-        flatMap(itemInTab=>itemInTab) ,
+        mergeMap(itemInTab=>itemInTab) ,
         filter((qcm: Qcm)=> qcm.title.toLowerCase().includes(this.filtre.toLowerCase()) ),
         toArray()
-      ).subscribe(plans=>{this.listeQcm=plans; console.log(JSON.stringify(plans));});
+      ).subscribe(plans=>{this.listeQcm.set(plans); console.log(JSON.stringify(plans));});
 
   }
 
   public reinit(){
-    this.listeQcm  = [];
+    this.listeQcm.set([]);
     this.selectedQcm = null;
   }
 

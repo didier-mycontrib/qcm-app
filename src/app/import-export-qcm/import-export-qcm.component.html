@@ -26,9 +26,11 @@
         <hr/>
         b. sélectionner un qcm à exporter(click):
         <ul>
-            <li *ngFor="let q of listeQcm">
+            @for(q of listeQcm() ; track q){
+            <li>
                 <span (click)="onExportQcm(q)" [class.selected]="q==selectedQcm"> {{q.title}}  </span> 
-            </li>     
+            </li>  
+            }   
         </ul>
         <hr/>
         c. copier/coller le contenu (ci-dessous) du qcm exporté au sein d'un nouveau fichier .json
@@ -40,6 +42,6 @@
 [(panelOpenState)]="importOpenState"
 (panelOpenStateChange)="onExclusiveOpenState(importOpenState)">
 <button (click)="onImportQcm()">importer/réintégrer le contenu ci dessous (Qcm JSON)</button>
-<div>{{importMessage}}</div>
+<div>{{importMessage()}}</div>
 <textarea id="qcmImportArea" [(ngModel)]="importedJsonQcm"></textarea>
 </my-toggle-panel>

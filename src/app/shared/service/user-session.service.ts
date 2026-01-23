@@ -1,5 +1,4 @@
-import { Injectable, signal, WritableSignal } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { UserSession } from '../data/user-session';
 import { inject, PLATFORM_ID } from "@angular/core";
 import { isPlatformBrowser} from "@angular/common";
@@ -52,6 +51,22 @@ export class UserSessionService extends GenericUserSessionService {
   */
 
  private _sUserSession = signal(new UserSession);
+
+ private _sConnected = computed(
+  ()=>this._sUserSession().authenticated
+ );
+
+ public get sConnected():Signal<boolean> {
+  return this._sConnected;
+ }
+
+ private _sMainRole = computed(
+  ()=>(this._sUserSession().userRoles.length>0)?this._sUserSession().userRoles[0]:""
+ );
+
+ public get sMainRole():Signal<string> {
+  return this._sMainRole;
+ }
 
  public get sUserSession() : WritableSignal<UserSession>{ 
     return this._sUserSession;

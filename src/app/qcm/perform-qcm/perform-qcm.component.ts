@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { QcmSession } from '../../common/session/qcm-session';
@@ -14,11 +14,13 @@ interface IBooleanDictionary {
 
 @Component({
   selector: 'app-perform-qcm',
-  imports: [FormsModule,NgFor],
+  imports: [FormsModule],
   templateUrl: './perform-qcm.component.html',
   styleUrls: ['./perform-qcm.component.scss']
 })
 export class PerformQcmComponent implements OnInit {
+
+  changeDectectorRef = inject(ChangeDetectorRef);
 
   public selections : IBooleanDictionary={};
   public qcmSession : QcmSession = new QcmSession();
@@ -41,10 +43,12 @@ export class PerformQcmComponent implements OnInit {
     if(this.qcmService.qcmSession && this.qcmService.qcmSession.qcm && this.qcmService.qcmSession.qcm.id)
     choosedQcmId =  this.qcmService.qcmSession.qcm.id;
     this.qcmService.getEntityObjectById$(choosedQcmId)
-         .subscribe(
-           (qcm:Qcm)=>{this.qcmService.qcmSession.qcm=qcm;
-                       this.initBeginingAfterQcmLoading();},
-           (error)=>{console.log(error);}
+         .subscribe({
+          next: (qcm:Qcm)=>{this.qcmService.qcmSession.qcm=qcm;
+                       this.initBeginingAfterQcmLoading();
+                       this.changeDectectorRef.markForCheck() },
+          error: (error)=>{console.log(error);}
+         }
          );
   }
 
@@ -109,6 +113,7 @@ export class PerformQcmComponent implements OnInit {
                   this.qcmSession.results=resp.globalResults;
                   let link = ['/ngr-qcm/results']; 
                   this.router.navigate( link );
+                  this.changeDectectorRef.markForCheck();
                   },
          (error)=>{console.log(error);}
        );

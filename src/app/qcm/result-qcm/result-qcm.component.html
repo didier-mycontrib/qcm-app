@@ -2,24 +2,28 @@
 <p>nombre de bonnes réponses:<span class="highlight"> {{qcmResults?.nbGoodResponses}} / {{qcmSession.qcm?.nbQuestions}}</span></p>
 <p>score (pourcentage): <span class="highlight">{{qcmResults?.percentageScore}} % </span></p> 
 <hr/>
-<h5>détails des <span *ngIf="mode=='training'">bonnes et mauvaises</span> réponses</h5>
+<h5>détails des @if(mode=='training'){<span>bonnes et mauvaises</span>} réponses</h5>
 <table class="with-border">
-    <tr><th>questions</th><th>choix</th><th><span *ngIf="mode=='training'">bonnes </span>réponses</th></tr>
-    <tr *ngFor="let q of qcmSession.qcm?.questions; index as i">
+    <tr><th>questions</th><th>choix</th><th> @if(mode=='training'){<span>bonnes </span>} réponses</th></tr>
+    @for( q of qcmSession.qcm?.questions; track q ; let i=$index ){
+    <tr>
         <td><p [ngClass]="setQuestionClasses(i)">
             <b>{{i+1}}</b>. {{q.question}}
         </p></td>
         <td>
-            <p *ngFor="let a of q.answers; index as j"
-                [ngClass]="setChoixClasses(i,j)">
+           @for(a of q.answers ; track a ; let j=$index){
+            <p [ngClass]="setChoixClasses(i,j)">
                 {{a.txtNum}}
             </p>
+           }  
         </td>
         <td>
-            <p *ngFor="let a of q.answers; index as j"
-                [ngClass]="setRespClasses(i,j)">
+             @for(a of q.answers ; track a ; let j=$index){
+            <p [ngClass]="setRespClasses(i,j)">
                 ({{a.txtNum}}) {{a.text}}
             </p>
+            } 
         </td>
     </tr>
+    }
 </table>

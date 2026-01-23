@@ -38,7 +38,7 @@ export class GenCrudFormComponent {
     modeRef = model("newOne"); //or "existingOne"
 
     //[(ngModel)]="deviseTempRef()!.code" , ....
-    objectTempRef :ModelSignal<any> = model(null);
+    objectTempRef = model<any>(null);
 
     optionalSpecificSubFormTemplateRef = input<TemplateRef<any>>();
 

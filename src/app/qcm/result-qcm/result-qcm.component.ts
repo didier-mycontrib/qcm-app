@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { QcmService } from '../../common/service/qcm.service';
 import { QcmSession} from '../../common/session/qcm-session';
 import { QcmGlobalResults } from '../../common/data/qcm';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-result-qcm',
-  imports: [FormsModule,NgFor,NgIf,NgClass],
+  imports: [FormsModule,NgClass],
   templateUrl: './result-qcm.component.html',
   styleUrls: ['./result-qcm.component.scss']
 })

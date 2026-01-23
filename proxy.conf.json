@@ -2,6 +2,6 @@
     {
     "context" : [ "/qcm-api" ]  ,
     "secure" : false , "changeOrigin" : true,
-    "target" : "http://localhost:8230"
+    "target" : "https://www.d-defrance.fr"
     }
 ]

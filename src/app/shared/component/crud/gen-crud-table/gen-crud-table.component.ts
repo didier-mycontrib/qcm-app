@@ -27,13 +27,13 @@ export class GenCrudTableComponent {
   
   objectHelperRef  = input<ObjectHelper<any,any> | null>(null);
 
-  public messageRef :ModelSignal<string> = model("");
+  public messageRef = model<string>("");
 
   //liste des objets à afficher
   tabObjectsRef  = input<object[] | null> (null);
 
   //objet sélectionné (null au début):
-  public selectedObjectRef :ModelSignal<any> = model(null);
+  public selectedObjectRef = model<any>(null);
 
   //liste des parties de l'objet à afficher (dans colonnes):
   essentialKeysArrayRef =input<string[] | null>(null);
