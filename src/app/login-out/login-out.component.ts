@@ -1,16 +1,16 @@
 import { Component, computed, effect, inject } from '@angular/core';
-import { UserSessionService } from '../shared/service/user-session.service';
-import { UserSessionEx, UserSession } from '../shared/data/user-session';
+import { UserSessionService } from 'd2f-ngx-session';
+import { UserSessionEx, UserSession } from 'd2f-ngx-session';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgIf } from '@angular/common';
-import { MyStorageUtilService } from '../shared/service/my-storage-util.service';
+import { MyStorageUtilService } from 'd2f-ngx-util';
 import { OAuth2SessionService } from '../common/service/oauth2-session.service';
 
 @Component({
   selector: 'app-login-out',
   imports: [NgIf,FormsModule,CommonModule],
   templateUrl: './login-out.component.html',
-  styleUrl: './login-out.component.scss'
+  styleUrl: './login-out.component.css'
 })
 
 export class LoginOutComponent  {

@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-not-authorized',
   imports: [RouterLink],
   templateUrl: './not-authorized.component.html',
-  styleUrl: './not-authorized.component.scss'
+  styleUrl: './not-authorized.component.css'
 })
 export class NotAuthorizedComponent {
 

@@ -1,19 +1,18 @@
 import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MyCardComponent } from '../shared/component/generic/my-card/my-card.component';
-import { MyFormGroupWithLabelComponent } from '../shared/component/generic/my-form-group-with-label/my-form-group-with-label.component';
-import { MyTogglePanelComponent } from '../shared/component/generic/my-toggle-panel/my-toggle-panel.component';
+import { D2fNgxTogglePanelComponent } from 'd2f-ngx-components';
 import { QcmService } from '../common/service/qcm.service';
 import { Qcm } from '../common/data/qcm';
 import { filter, mergeMap, Observable, toArray } from 'rxjs';
+import { D2fNgxChoiceFieldComponent, D2fNgxLabelInputFieldComponent } from 'd2f-ngx-forms';
 
 @Component({
   selector: 'app-import-export-qcm',
-  imports: [FormsModule,MyCardComponent,MyFormGroupWithLabelComponent,
-           MyTogglePanelComponent,AsyncPipe,JsonPipe],
+  imports: [FormsModule,D2fNgxLabelInputFieldComponent,D2fNgxChoiceFieldComponent,
+           D2fNgxTogglePanelComponent,AsyncPipe,JsonPipe],
   templateUrl: './import-export-qcm.component.html',
-  styleUrl: './import-export-qcm.component.scss'
+  styleUrl: './import-export-qcm.component.css'
 })
 export class ImportExportQcmComponent {
 

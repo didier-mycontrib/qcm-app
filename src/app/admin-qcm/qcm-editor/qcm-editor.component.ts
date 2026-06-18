@@ -7,7 +7,7 @@ import { NgFor } from '@angular/common';
   selector: 'qcm-qcm-editor',
   imports:[FormsModule,NgFor],
   templateUrl: './qcm-editor.component.html',
-  styleUrls: ['./qcm-editor.component.scss']
+  styleUrls: ['./qcm-editor.component.css']
 })
 export class QcmEditorComponent implements OnInit , OnChanges{
   

@@ -6,7 +6,7 @@ import { QcmSession } from '../session/qcm-session';
 import { Observable } from 'rxjs';
 import {  map} from 'rxjs/operators';
 import { PostChoicesRequest, PostChoicesResponse } from '../data/postChoicesData';
-import { GenericRestCrudService } from '../../shared/service/generic-rest-crud-service';
+import { GenericRestCrudService } from 'd2f-ngx-crud';
 
 
 @Injectable({

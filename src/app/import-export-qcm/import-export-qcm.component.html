@@ -1,30 +1,19 @@
 <h4></h4>
-<my-toggle-panel title="export (pour sauvegarde) de qcm existant"
+<d2fngx-toggle-panel title="export (pour sauvegarde) de qcm existant"
 [(panelOpenState)]="exportOpenState"
 (panelOpenStateChange)="onExclusiveOpenState(exportOpenState)">
     <form role="form" #formFiltrage="ngForm"
-        method="POST"  id="formFiltrage" class="form-horizontal">
+        method="POST"  id="formFiltrage" class="p-1 grid grid-cols-1">
 
-        <my-formgroup-label [label]="'mode'">
-            <input type="radio"  value="training" name="mode" [(ngModel)]="mode" (ngModelChange)="reinit()"/> training &nbsp;&nbsp;
-            <input type="radio"  value="eval"  name="mode" [(ngModel)]="mode" (ngModelChange)="reinit()" /> eval
-    </my-formgroup-label> 
-
-        <my-formgroup-label [label]="'filtre'">
-            <input type="text" class="form-control"
-            name="filtre" [(ngModel)]="filtre" />
-        </my-formgroup-label>   
-
-        <div class="form-group row">
-            <div class="offset-sm-3 col-sm-9">
-            <input  type="submit" class="btn my-bg-primary text-white" 
-                        value="a. actualiser la liste" 
-                        (click)="onListeQcmAvecFiltrage()" /> &nbsp;&nbsp; <span>{{msgFiltrage}}</span>
-            </div>
-            </div>
-        </form>
+      <d2fngx-choice-field fieldLayout='row' [(fieldData)]="mode" (fieldDataChange)="reinit()" name="mode"  [items]="['training','eval']" ></d2fngx-choice-field>
+  
+       <d2fngx-label-input-field fieldLayout='row' [(fieldData)]="filtre" name="filtre" label="filtre (facultatif)" ></d2fngx-label-input-field>
+         <div>
+          <button  (click)="onListeQcmAvecFiltrage()"> a. actualiser la liste</button> &nbsp;&nbsp; <span>{{msgFiltrage}}</span>
+        </div>
+    </form>
         <hr/>
-        b. sélectionner un qcm à exporter(click):
+         <p class="font-bold">b. sélectionner un qcm à exporter(click):</p>
         <ul>
             @for(q of listeQcm() ; track q){
             <li>
@@ -36,12 +25,12 @@
         c. copier/coller le contenu (ci-dessous) du qcm exporté au sein d'un nouveau fichier .json
         <hr/>
         <div id="qcmExportArea">{{exportedQcm$ | async | json}}</div>
-     </my-toggle-panel>
+</d2fngx-toggle-panel>
 
-<my-toggle-panel title="import (réintégration) de qcm sauvegardé"
+<d2fngx-toggle-panel title="import (réintégration) de qcm sauvegardé"
 [(panelOpenState)]="importOpenState"
 (panelOpenStateChange)="onExclusiveOpenState(importOpenState)">
 <button (click)="onImportQcm()">importer/réintégrer le contenu ci dessous (Qcm JSON)</button>
 <div>{{importMessage()}}</div>
 <textarea id="qcmImportArea" [(ngModel)]="importedJsonQcm"></textarea>
-</my-toggle-panel>
+</d2fngx-toggle-panel>

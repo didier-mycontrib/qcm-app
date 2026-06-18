@@ -16,7 +16,7 @@ interface IBooleanDictionary {
   selector: 'app-perform-qcm',
   imports: [FormsModule],
   templateUrl: './perform-qcm.component.html',
-  styleUrls: ['./perform-qcm.component.scss']
+  styleUrls: ['./perform-qcm.component.css']
 })
 export class PerformQcmComponent implements OnInit {
 

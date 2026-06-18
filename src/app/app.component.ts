@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { D2fNgxLayoutComponent } from './shared/component/layout/d2f-ngx-layout.component';
-import { MenuDef } from './shared/data/menu-def';
+import { D2fNgxLayoutComponent , MenuDef } from 'd2f-ngx-layout';
 
 @Component({
   selector: 'app-root',
   //imports: [RouterOutlet,BasicComponent,MyTogglePanelComponent],
   imports: [D2fNgxLayoutComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'qcm-app';

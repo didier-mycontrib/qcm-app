@@ -7,7 +7,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'qcm-qcm',
   imports: [RouterOutlet] ,
   templateUrl: './qcm.component.html',
-  styleUrls: ['./qcm.component.scss']
+  styleUrls: ['./qcm.component.css']
 })
 export class QcmComponent implements OnInit {
 

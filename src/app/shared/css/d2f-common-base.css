@@ -1,0 +1,14 @@
+
+/*
+:root { 
+  ...
+}
+may be overrided by 
+specif theme (of matrial or tailwind or ...)
+*/
+
+
+.d2f-theme {
+    --my-bg-primary : rgb(10, 10, 148);
+    --my-bg-secondary : rgb(104, 7, 104);
+}

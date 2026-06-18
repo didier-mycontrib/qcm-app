@@ -1,0 +1,72 @@
+
+@import "./d2f-layout-common-media-query.css";
+
+.mt-1{
+    margin-top: 0.25em;
+}
+
+.mb-1{
+    margin-bottom: 0.25em;
+}
+
+.m-1{
+    margin: 0.25em;
+}
+
+.p-1{
+    padding: 0.25em;
+}
+
+.flexColumnNoWrap {
+    display: flex; 
+    flex-direction: column;
+    flex-wrap : nowrap;
+}
+
+.flexRowNoWrap {
+    display: flex; 
+    flex-direction: row;
+    flex-wrap : nowrap;
+   align-items : center;
+}
+
+.flexColumnWrap {
+    display: flex; 
+    flex-direction: column;
+    flex-wrap : wrap;
+}
+
+.flexRowWrap {
+    display: flex; 
+    flex-direction: row;
+    flex-wrap : wrap;
+    align-items : center;
+}
+
+.flexItem {
+    flex: 1 1 auto;
+}
+
+.flexItemNone {
+    flex: none; /* as 0 0 auto */
+}
+
+.fixed2emFlexItem {
+    flex: 0 0 2em;
+}
+
+.fixed1emFlexItem {
+    flex: 0 0 1em;
+}
+
+.left-text-align {
+    text-align: left;
+}
+
+.right-text-align {
+    text-align: right;
+}
+
+.center-text-align {
+    text-align: center;
+}

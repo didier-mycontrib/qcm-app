@@ -77,6 +77,7 @@ export class QcmResults{
   id : string | null =null;  
   performer : QcmPerformer = new QcmPerformer();
   qcmId : string | null=null;
+  //a ajouter dans future v2 : .qcmName et .date .time 
   choices : ResponseChoices[]=[];
   globalResults : QcmGlobalResults = new QcmGlobalResults();
 }

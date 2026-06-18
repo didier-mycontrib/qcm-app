@@ -1,21 +1,21 @@
-import { Component, effect, OnInit, Signal, signal, ViewChild, WritableSignal } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, inject, OnInit, Signal, signal, ViewChild, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter , flatMap , mergeMap, toArray} from 'rxjs/operators';
+import { filter , map, mergeMap, toArray} from 'rxjs/operators';
 import { Qcm } from '../../common/data/qcm';
 import { QcmService } from '../../common/service/qcm.service';
 import { FormsModule, NgForm } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
-import { MyCardComponent } from '../../shared/component/generic/my-card/my-card.component';
-import { MyFormGroupWithLabelComponent } from '../../shared/component/generic/my-form-group-with-label/my-form-group-with-label.component';
-import { MyTogglePanelComponent } from '../../shared/component/generic/my-toggle-panel/my-toggle-panel.component';
+import { D2fNgxChoiceFieldComponent, D2fNgxLabelInputFieldComponent} from 'd2f-ngx-forms';
+import { D2fNgxTogglePanelComponent } from 'd2f-ngx-components';
 
 @Component({
   selector: 'app-option-qcm',
-  imports: [FormsModule,MyCardComponent,MyFormGroupWithLabelComponent,MyTogglePanelComponent],
+  imports: [FormsModule,D2fNgxLabelInputFieldComponent,D2fNgxChoiceFieldComponent,D2fNgxTogglePanelComponent],
   templateUrl: './option-qcm.component.html',
-  styleUrls: ['./option-qcm.component.scss']
+  styleUrls: ['./option-qcm.component.css']
 })
 export class OptionQcmComponent implements OnInit {
+
+  changeDetectorRef = inject(ChangeDetectorRef);
 
   @ViewChild('formOptions', {static: true}) 
   private formOptions : NgForm | undefined;
@@ -45,23 +45,30 @@ export class OptionQcmComponent implements OnInit {
     console.log("specif="+this.specif);
   }
   public filtre : string ="";
-  public msgFiltrage = "";
+  public msgFiltrage = signal("");
 
   public listeQcm=signal<Qcm[]>([]);
   public selectedQcm :Qcm | null = null;
 
   public onListeQcmAvecFiltrage():void {
+    
       //pré-version pas encore optimisée:
+      this.msgFiltrage.set("...")
       this.qcmService.findQcmFromCriteria(this.mode)
       .pipe(
-        mergeMap(itemInTab=>itemInTab) ,
-        filter((qcm: Qcm)=> qcm.title.toLowerCase().includes(this.filtre.toLowerCase()) ),
-        toArray()
-      ).subscribe(plans=>{this.listeQcm.set(plans); console.log(JSON.stringify(plans));});
+        map( (qcmList : Qcm[]) => qcmList.filter( (qcm)=>qcm.title.toLowerCase().includes(this.filtre.toLowerCase())))
+      ).subscribe({
+        next: qcmList=>{this.listeQcm.set(qcmList); 
+                        this.msgFiltrage.set(`${qcmList.length} qcm found` )
+                       console.log(JSON.stringify(qcmList));
+                      },
+        error:  (err)=> { console.log(err);    this.msgFiltrage.set(`error , not found` ) }
+        });
 
   }
 
   public reinit(){
+    console.log("reinit, mode="+this.mode);
     this.listeQcm.set([]);
     this.selectedQcm = null;
   }

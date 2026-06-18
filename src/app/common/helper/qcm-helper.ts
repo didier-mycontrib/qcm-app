@@ -1,5 +1,5 @@
-import { FieldHelper } from "../../shared/helper/field-helper";
-import { AbstractObjectHelper } from "../../shared/helper/object-helper";
+import { FieldHelper } from "d2f-ngx-util";
+import { AbstractObjectHelper } from "d2f-ngx-util";
 import { Qcm } from "../data/qcm";
 
 export class QcmHelper extends AbstractObjectHelper<Qcm,String> {

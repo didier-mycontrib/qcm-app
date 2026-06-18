@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { QcmResults } from '../data/qcm';
-import { GenericRestCrudService } from '../../shared/service/generic-rest-crud-service';
+import { GenericRestCrudService } from 'd2f-ngx-crud';
 
 @Injectable({
   providedIn: 'root'

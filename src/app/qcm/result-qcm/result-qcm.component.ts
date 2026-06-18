@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-result-qcm',
   imports: [FormsModule,NgClass],
   templateUrl: './result-qcm.component.html',
-  styleUrls: ['./result-qcm.component.scss']
+  styleUrls: ['./result-qcm.component.css']
 })
 export class ResultQcmComponent implements OnInit {
   public mode:string ; //"training" or "eval" or ....

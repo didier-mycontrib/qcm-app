@@ -1,5 +1,5 @@
-<p>question {{numQuestion}} / {{nbQuestions}}</p>
-<p>{{currentQuestion?.question}}</p>
+<p class="underline">question {{numQuestion}} / {{nbQuestions}}</p>
+<p class="font-bold">{{currentQuestion?.question}}</p>
  @for(a of currentQuestion?.answers; track a){
    <div>
     <input type="checkbox" [(ngModel)]="selections[a.txtNum]"/>

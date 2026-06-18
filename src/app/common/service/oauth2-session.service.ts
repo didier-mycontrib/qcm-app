@@ -2,11 +2,10 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthConfig, OAuthErrorEvent, OAuthInfoEvent, OAuthService, OAuthSuccessEvent } from 'angular-oauth2-oidc';
 import { Location } from '@angular/common';
-import { UserSessionService} from "../../shared/service/user-session.service";
-import { UserSession } from '../../shared/data/user-session';
+import { UserSessionService} from "d2f-ngx-session";
+import { UserSession } from 'd2f-ngx-session';
 import { PLATFORM_ID } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
-import { deleteCookieWithPathDomain } from '../../shared/util/util';
 
 @Injectable({
   providedIn: 'root'
