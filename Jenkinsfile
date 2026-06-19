@@ -27,7 +27,7 @@ pipeline {
         stage('npm_install') {
             steps {
 				echo 'npm install'
-				sh 'npm install'
+				sh 'npm install --legacy-peer-deps'
             }
         }
 		stage('unit-tests') {
